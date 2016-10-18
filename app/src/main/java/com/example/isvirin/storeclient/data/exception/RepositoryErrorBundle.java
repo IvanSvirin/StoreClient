@@ -15,7 +15,8 @@
  */
 package com.example.isvirin.storeclient.data.exception;
 
-import com.fernandocejas.android10.sample.domain.exception.ErrorBundle;
+
+import com.example.isvirin.storeclient.domain.exception.ErrorBundle;
 
 /**
  * Wrapper around Exceptions used to manage errors in the repository.

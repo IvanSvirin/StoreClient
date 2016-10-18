@@ -18,10 +18,17 @@ package com.example.isvirin.storeclient.presentation.presenter;
 import android.support.annotation.NonNull;
 
 
+import com.example.isvirin.storeclient.domain.User;
+import com.example.isvirin.storeclient.domain.exception.DefaultErrorBundle;
+import com.example.isvirin.storeclient.domain.exception.ErrorBundle;
+import com.example.isvirin.storeclient.domain.interactor.DefaultSubscriber;
 import com.example.isvirin.storeclient.domain.interactor.UseCase;
+import com.example.isvirin.storeclient.presentation.exception.ErrorMessageFactory;
 import com.example.isvirin.storeclient.presentation.internal.di.PerActivity;
 import com.example.isvirin.storeclient.presentation.mapper.UserModelDataMapper;
+import com.example.isvirin.storeclient.presentation.model.UserModel;
 import com.example.isvirin.storeclient.presentation.view.UserDetailsView;
+import com.fernandocejas.frodo.annotation.RxLogSubscriber;
 
 import javax.inject.Inject;
 import javax.inject.Named;

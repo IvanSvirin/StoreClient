@@ -12,6 +12,7 @@ import android.view.Window;
 
 import com.example.isvirin.storeclient.R;
 import com.example.isvirin.storeclient.presentation.internal.di.HasComponent;
+import com.example.isvirin.storeclient.presentation.internal.di.components.DaggerUserComponent;
 import com.example.isvirin.storeclient.presentation.internal.di.components.UserComponent;
 import com.example.isvirin.storeclient.presentation.internal.di.modules.UserModule;
 import com.example.isvirin.storeclient.presentation.view.fragment.UserDetailsFragment;

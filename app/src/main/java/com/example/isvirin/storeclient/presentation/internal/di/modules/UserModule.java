@@ -15,13 +15,14 @@
  */
 package com.example.isvirin.storeclient.presentation.internal.di.modules;
 
-import com.fernandocejas.android10.sample.domain.executor.PostExecutionThread;
-import com.fernandocejas.android10.sample.domain.executor.ThreadExecutor;
-import com.fernandocejas.android10.sample.domain.interactor.GetUserDetails;
-import com.fernandocejas.android10.sample.domain.interactor.GetUserList;
-import com.fernandocejas.android10.sample.domain.interactor.UseCase;
-import com.fernandocejas.android10.sample.domain.repository.UserRepository;
-import com.fernandocejas.android10.sample.presentation.internal.di.PerActivity;
+
+import com.example.isvirin.storeclient.domain.executor.PostExecutionThread;
+import com.example.isvirin.storeclient.domain.executor.ThreadExecutor;
+import com.example.isvirin.storeclient.domain.interactor.GetUserDetails;
+import com.example.isvirin.storeclient.domain.interactor.GetUserList;
+import com.example.isvirin.storeclient.domain.interactor.UseCase;
+import com.example.isvirin.storeclient.domain.repository.UserRepository;
+import com.example.isvirin.storeclient.presentation.internal.di.PerActivity;
 
 import javax.inject.Named;
 
@@ -43,15 +44,17 @@ public class UserModule {
   }
 
   @Provides
-  @PerActivity @Named("userList") UseCase provideGetUserListUseCase(
+  @PerActivity
+  @Named("userList")
+  UseCase provideGetUserListUseCase(
       GetUserList getUserList) {
     return getUserList;
   }
 
   @Provides
   @PerActivity @Named("userDetails") UseCase provideGetUserDetailsUseCase(
-      UserRepository userRepository, ThreadExecutor threadExecutor,
-      PostExecutionThread postExecutionThread) {
+          UserRepository userRepository, ThreadExecutor threadExecutor,
+          PostExecutionThread postExecutionThread) {
     return new GetUserDetails(userId, userRepository, threadExecutor, postExecutionThread);
   }
 }

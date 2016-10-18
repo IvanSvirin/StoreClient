@@ -19,6 +19,7 @@ import android.app.Application;
 
 import com.example.isvirin.storeclient.BuildConfig;
 import com.example.isvirin.storeclient.presentation.internal.di.components.ApplicationComponent;
+import com.example.isvirin.storeclient.presentation.internal.di.components.DaggerApplicationComponent;
 import com.example.isvirin.storeclient.presentation.internal.di.modules.ApplicationModule;
 import com.squareup.leakcanary.LeakCanary;
 

@@ -17,15 +17,16 @@ package com.example.isvirin.storeclient.presentation.internal.di.modules;
 
 import android.content.Context;
 
-import com.fernandocejas.android10.sample.data.cache.UserCache;
-import com.fernandocejas.android10.sample.data.cache.UserCacheImpl;
-import com.fernandocejas.android10.sample.data.executor.JobExecutor;
-import com.fernandocejas.android10.sample.data.repository.UserDataRepository;
-import com.fernandocejas.android10.sample.domain.executor.PostExecutionThread;
-import com.fernandocejas.android10.sample.domain.executor.ThreadExecutor;
-import com.fernandocejas.android10.sample.domain.repository.UserRepository;
-import com.fernandocejas.android10.sample.presentation.AndroidApplication;
-import com.fernandocejas.android10.sample.presentation.UIThread;
+
+import com.example.isvirin.storeclient.data.cache.UserCache;
+import com.example.isvirin.storeclient.data.cache.UserCacheImpl;
+import com.example.isvirin.storeclient.data.executor.JobExecutor;
+import com.example.isvirin.storeclient.data.repository.UserDataRepository;
+import com.example.isvirin.storeclient.domain.executor.PostExecutionThread;
+import com.example.isvirin.storeclient.domain.executor.ThreadExecutor;
+import com.example.isvirin.storeclient.domain.repository.UserRepository;
+import com.example.isvirin.storeclient.presentation.AndroidApplication;
+import com.example.isvirin.storeclient.presentation.UIThread;
 
 import javax.inject.Singleton;
 
@@ -50,22 +51,26 @@ public class ApplicationModule {
   }
 
   @Provides
-  @Singleton ThreadExecutor provideThreadExecutor(JobExecutor jobExecutor) {
+  @Singleton
+  ThreadExecutor provideThreadExecutor(JobExecutor jobExecutor) {
     return jobExecutor;
   }
 
   @Provides
-  @Singleton PostExecutionThread providePostExecutionThread(UIThread uiThread) {
+  @Singleton
+  PostExecutionThread providePostExecutionThread(UIThread uiThread) {
     return uiThread;
   }
 
   @Provides
-  @Singleton UserCache provideUserCache(UserCacheImpl userCache) {
+  @Singleton
+  UserCache provideUserCache(UserCacheImpl userCache) {
     return userCache;
   }
 
   @Provides
-  @Singleton UserRepository provideUserRepository(UserDataRepository userDataRepository) {
+  @Singleton
+  UserRepository provideUserRepository(UserDataRepository userDataRepository) {
     return userDataRepository;
   }
 }

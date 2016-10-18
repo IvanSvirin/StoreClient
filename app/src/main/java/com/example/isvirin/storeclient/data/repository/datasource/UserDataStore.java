@@ -15,7 +15,8 @@
  */
 package com.example.isvirin.storeclient.data.repository.datasource;
 
-import com.fernandocejas.android10.sample.data.entity.UserEntity;
+
+import com.example.isvirin.storeclient.data.entity.UserEntity;
 
 import java.util.List;
 

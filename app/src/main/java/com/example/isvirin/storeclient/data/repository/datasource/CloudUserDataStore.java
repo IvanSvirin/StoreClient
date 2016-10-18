@@ -15,9 +15,10 @@
  */
 package com.example.isvirin.storeclient.data.repository.datasource;
 
-import com.fernandocejas.android10.sample.data.cache.UserCache;
-import com.fernandocejas.android10.sample.data.entity.UserEntity;
-import com.fernandocejas.android10.sample.data.net.RestApi;
+
+import com.example.isvirin.storeclient.data.cache.UserCache;
+import com.example.isvirin.storeclient.data.entity.UserEntity;
+import com.example.isvirin.storeclient.data.net.RestApi;
 
 import java.util.List;
 

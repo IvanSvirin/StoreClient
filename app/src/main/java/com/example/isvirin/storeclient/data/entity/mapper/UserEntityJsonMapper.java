@@ -15,7 +15,7 @@
  */
 package com.example.isvirin.storeclient.data.entity.mapper;
 
-import com.fernandocejas.android10.sample.data.entity.UserEntity;
+import com.example.isvirin.storeclient.data.entity.UserEntity;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;

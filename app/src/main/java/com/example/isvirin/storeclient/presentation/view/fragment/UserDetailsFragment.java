@@ -15,7 +15,10 @@ import android.widget.TextView;
 
 import com.example.isvirin.storeclient.R;
 import com.example.isvirin.storeclient.presentation.internal.di.components.UserComponent;
+import com.example.isvirin.storeclient.presentation.model.UserModel;
+import com.example.isvirin.storeclient.presentation.presenter.UserDetailsPresenter;
 import com.example.isvirin.storeclient.presentation.view.UserDetailsView;
+import com.example.isvirin.storeclient.presentation.view.component.AutoLoadImageView;
 
 import javax.inject.Inject;
 
@@ -28,9 +31,11 @@ import butterknife.OnClick;
  */
 public class UserDetailsFragment extends BaseFragment implements UserDetailsView {
 
-  @Inject UserDetailsPresenter userDetailsPresenter;
+  @Inject
+  UserDetailsPresenter userDetailsPresenter;
 
-  @Bind(R.id.iv_cover) AutoLoadImageView iv_cover;
+  @Bind(R.id.iv_cover)
+  AutoLoadImageView iv_cover;
   @Bind(R.id.tv_fullname)
   TextView tv_fullname;
   @Bind(R.id.tv_email)

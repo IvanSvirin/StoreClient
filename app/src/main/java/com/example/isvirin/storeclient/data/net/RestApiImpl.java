@@ -19,9 +19,10 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.fernandocejas.android10.sample.data.entity.UserEntity;
-import com.fernandocejas.android10.sample.data.entity.mapper.UserEntityJsonMapper;
-import com.fernandocejas.android10.sample.data.exception.NetworkConnectionException;
+
+import com.example.isvirin.storeclient.data.entity.UserEntity;
+import com.example.isvirin.storeclient.data.entity.mapper.UserEntityJsonMapper;
+import com.example.isvirin.storeclient.data.exception.NetworkConnectionException;
 import com.fernandocejas.frodo.annotation.RxLogObservable;
 
 import java.net.MalformedURLException;

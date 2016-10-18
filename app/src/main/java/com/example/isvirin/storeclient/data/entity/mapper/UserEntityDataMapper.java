@@ -15,8 +15,8 @@
  */
 package com.example.isvirin.storeclient.data.entity.mapper;
 
-import com.fernandocejas.android10.sample.data.entity.UserEntity;
-import com.fernandocejas.android10.sample.domain.User;
+import com.example.isvirin.storeclient.data.entity.UserEntity;
+import com.example.isvirin.storeclient.domain.User;
 
 import java.util.ArrayList;
 import java.util.Collection;

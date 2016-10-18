@@ -17,8 +17,12 @@ import android.widget.RelativeLayout;
 
 
 import com.example.isvirin.storeclient.R;
+import com.example.isvirin.storeclient.presentation.internal.di.components.UserComponent;
 import com.example.isvirin.storeclient.presentation.model.UserModel;
+import com.example.isvirin.storeclient.presentation.presenter.UserListPresenter;
 import com.example.isvirin.storeclient.presentation.view.UserListView;
+import com.example.isvirin.storeclient.presentation.view.adapter.UsersAdapter;
+import com.example.isvirin.storeclient.presentation.view.adapter.UsersLayoutManager;
 
 import java.util.Collection;
 
@@ -40,8 +44,10 @@ public class UserListFragment extends BaseFragment implements UserListView {
     void onUserClicked(final UserModel userModel);
   }
 
-  @Inject UserListPresenter userListPresenter;
-  @Inject UsersAdapter usersAdapter;
+  @Inject
+  UserListPresenter userListPresenter;
+  @Inject
+  UsersAdapter usersAdapter;
 
   @Bind(R.id.rv_users) RecyclerView rv_users;
   @Bind(R.id.rl_progress)

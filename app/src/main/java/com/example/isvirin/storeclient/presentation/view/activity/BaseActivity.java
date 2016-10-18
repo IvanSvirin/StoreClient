@@ -9,6 +9,7 @@ import android.os.Bundle;
 import com.example.isvirin.storeclient.presentation.AndroidApplication;
 import com.example.isvirin.storeclient.presentation.internal.di.components.ApplicationComponent;
 import com.example.isvirin.storeclient.presentation.internal.di.modules.ActivityModule;
+import com.example.isvirin.storeclient.presentation.navigation.Navigator;
 
 import javax.inject.Inject;
 
@@ -17,7 +18,8 @@ import javax.inject.Inject;
  */
 public abstract class BaseActivity extends Activity {
 
-  @Inject Navigator navigator;
+  @Inject
+  Navigator navigator;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

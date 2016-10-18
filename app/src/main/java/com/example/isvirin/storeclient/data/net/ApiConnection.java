@@ -17,6 +17,7 @@ package com.example.isvirin.storeclient.data.net;
 
 import android.support.annotation.Nullable;
 
+
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 
@@ -25,6 +26,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
+
+
 
 /**
  * Api Connection class used to retrieve data from the cloud.

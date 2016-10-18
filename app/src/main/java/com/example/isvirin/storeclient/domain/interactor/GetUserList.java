@@ -15,10 +15,10 @@
  */
 package com.example.isvirin.storeclient.domain.interactor;
 
-import com.fernandocejas.android10.sample.domain.User;
-import com.fernandocejas.android10.sample.domain.executor.PostExecutionThread;
-import com.fernandocejas.android10.sample.domain.executor.ThreadExecutor;
-import com.fernandocejas.android10.sample.domain.repository.UserRepository;
+import com.example.isvirin.storeclient.domain.User;
+import com.example.isvirin.storeclient.domain.executor.PostExecutionThread;
+import com.example.isvirin.storeclient.domain.executor.ThreadExecutor;
+import com.example.isvirin.storeclient.domain.repository.UserRepository;
 
 import javax.inject.Inject;
 

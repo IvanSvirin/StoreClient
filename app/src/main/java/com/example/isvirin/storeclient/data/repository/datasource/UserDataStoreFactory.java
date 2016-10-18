@@ -18,10 +18,11 @@ package com.example.isvirin.storeclient.data.repository.datasource;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.fernandocejas.android10.sample.data.cache.UserCache;
-import com.fernandocejas.android10.sample.data.entity.mapper.UserEntityJsonMapper;
-import com.fernandocejas.android10.sample.data.net.RestApi;
-import com.fernandocejas.android10.sample.data.net.RestApiImpl;
+
+import com.example.isvirin.storeclient.data.cache.UserCache;
+import com.example.isvirin.storeclient.data.entity.mapper.UserEntityJsonMapper;
+import com.example.isvirin.storeclient.data.net.RestApi;
+import com.example.isvirin.storeclient.data.net.RestApiImpl;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
