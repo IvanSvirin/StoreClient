@@ -39,6 +39,12 @@ class CloudUserDataStore implements UserDataStore {
     }
   };
 
+  private final Action1<List<UserEntity>> saveListToCacheAction = userEntity -> {
+    if (userEntity != null) {
+      CloudUserDataStore.this.userCache.putList(userEntity);
+    }
+  };
+
   /**
    * Construct a {@link UserDataStore} based on connections to the api (Cloud).
    *
@@ -52,7 +58,7 @@ class CloudUserDataStore implements UserDataStore {
 
   @Override
   public Observable<List<UserEntity>> userEntityList() {
-    return this.restApi.userEntityList();
+    return this.restApi.userEntityList().doOnNext(saveListToCacheAction);
   }
 
   @Override

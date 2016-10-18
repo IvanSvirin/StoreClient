@@ -57,6 +57,18 @@ public class UserDataStoreFactory {
     return userDataStore;
   }
 
+  public UserDataStore createList() {
+    UserDataStore userDataStore;
+
+    if (!this.userCache.isExpired() && this.userCache.isListCached()) {
+      userDataStore = new DiskUserDataStore(this.userCache);
+    } else {
+      userDataStore = createCloudDataStore();
+    }
+
+    return userDataStore;
+  }
+
   /**
    * Create {@link UserDataStore} to retrieve data from the Cloud.
    */
