@@ -24,6 +24,7 @@ import com.example.isvirin.storeclient.data.exception.UserNotFoundException;
 import com.example.isvirin.storeclient.domain.executor.ThreadExecutor;
 
 import java.io.File;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -36,10 +37,11 @@ import rx.Observable;
 @Singleton
 public class UserCacheImpl implements UserCache {
 
-    private static final String SETTINGS_FILE_NAME = "com.fernandocejas.android10.SETTINGS";
+    private static final String SETTINGS_FILE_NAME = "file_name";
     private static final String SETTINGS_KEY_LAST_CACHE_UPDATE = "last_cache_update";
 
     private static final String DEFAULT_FILE_NAME = "user_";
+    private static final String DEFAULT_USERS_LIST_FILE_NAME = "users_list";
     private static final long EXPIRATION_TIME = 60 * 10 * 1000;
 
     private final Context context;
@@ -51,9 +53,9 @@ public class UserCacheImpl implements UserCache {
     /**
      * Constructor of the class {@link UserCacheImpl}.
      *
-     * @param context A
+     * @param context             A
      * @param userCacheSerializer {@link JsonSerializer} for object serialization.
-     * @param fileManager {@link FileManager} for saving serialized objects to the file system.
+     * @param fileManager         {@link FileManager} for saving serialized objects to the file system.
      */
     @Inject
     public UserCacheImpl(Context context, JsonSerializer userCacheSerializer,
@@ -85,6 +87,36 @@ public class UserCacheImpl implements UserCache {
     }
 
     @Override
+    public Observable<List<UserEntity>> getList() {
+        return Observable.create(subscriber -> {
+            File userEntityFile = UserCacheImpl.this.buildFile(-1);
+            String fileContent = UserCacheImpl.this.fileManager.readFileContent(userEntityFile);
+            List<UserEntity> userEntityList = UserCacheImpl.this.serializer.deserializeList(fileContent);
+
+            if (userEntityList != null) {
+                subscriber.onNext(userEntityList);
+                subscriber.onCompleted();
+            } else {
+                subscriber.onError(new UserNotFoundException());
+            }
+        });
+    }
+
+    @Override
+    public void putList(List<UserEntity> userEntityList) {
+        if (userEntityList != null) {
+            File userEntityFile = this.buildFile(-1);
+            if (!isListCached()) {
+                String jsonString = this.serializer.serializeList(userEntityList);
+                this.executeAsynchronously(new CacheWriter(this.fileManager, userEntityFile,
+                        jsonString));
+                setLastCacheUpdateTimeMillis();
+            }
+        }
+
+    }
+
+    @Override
     public void put(UserEntity userEntity) {
         if (userEntity != null) {
             File userEntityFile = this.buildFile(userEntity.getUserId());
@@ -101,6 +133,12 @@ public class UserCacheImpl implements UserCache {
     public boolean isCached(int userId) {
         File userEntitiyFile = this.buildFile(userId);
         return this.fileManager.exists(userEntitiyFile);
+    }
+
+    @Override
+    public boolean isListCached() {
+        File userEntitiyListFile = this.buildFile(-1);
+        return this.fileManager.exists(userEntitiyListFile);
     }
 
     @Override
@@ -129,13 +167,17 @@ public class UserCacheImpl implements UserCache {
      * @return A valid file.
      */
     private File buildFile(int userId) {
-        StringBuilder fileNameBuilder = new StringBuilder();
-        fileNameBuilder.append(this.cacheDir.getPath());
-        fileNameBuilder.append(File.separator);
-        fileNameBuilder.append(DEFAULT_FILE_NAME);
-        fileNameBuilder.append(userId);
+        if (userId != -1) {
+            StringBuilder fileNameBuilder = new StringBuilder();
+            fileNameBuilder.append(this.cacheDir.getPath());
+            fileNameBuilder.append(File.separator);
+            fileNameBuilder.append(DEFAULT_FILE_NAME);
+            fileNameBuilder.append(userId);
 
-        return new File(fileNameBuilder.toString());
+            return new File(fileNameBuilder.toString());
+        } else {
+            return new File(DEFAULT_USERS_LIST_FILE_NAME);
+        }
     }
 
     /**
