@@ -17,14 +17,9 @@ package com.example.isvirin.storeclient.data.cache.serializer;
 
 import com.example.isvirin.storeclient.data.entity.UserEntity;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -64,8 +59,8 @@ public class JsonSerializer {
 
 
   public List<UserEntity> deserializeList(String jsonString) {
-    List<UserEntity> userListEntity = new ArrayList<>();
-    return gson.fromJson(jsonString, userListEntity.getClass());
+    Type listOfUserEntityType = new TypeToken<List<UserEntity>>() {}.getType();
+    return gson.fromJson(jsonString, listOfUserEntityType);
   }
 
   public String serializeList(List<UserEntity> userEntity) {
