@@ -176,7 +176,12 @@ public class UserCacheImpl implements UserCache {
 
             return new File(fileNameBuilder.toString());
         } else {
-            return new File(DEFAULT_USERS_LIST_FILE_NAME);
+            StringBuilder fileNameBuilder = new StringBuilder();
+            fileNameBuilder.append(this.cacheDir.getPath());
+            fileNameBuilder.append(File.separator);
+            fileNameBuilder.append(DEFAULT_USERS_LIST_FILE_NAME);
+
+            return new File(fileNameBuilder.toString());
         }
     }
 
