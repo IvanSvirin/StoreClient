@@ -16,7 +16,7 @@
 package com.example.isvirin.storeclient.data.repository;
 
 
-import com.example.isvirin.storeclient.data.entity.mapper.UserEntityDataMapper;
+import com.example.isvirin.storeclient.data.entity.mapper.EntityDataMapper;
 import com.example.isvirin.storeclient.data.repository.datasource.UserDataStore;
 import com.example.isvirin.storeclient.data.repository.datasource.UserDataStoreFactory;
 import com.example.isvirin.storeclient.domain.User;
@@ -36,17 +36,17 @@ import rx.Observable;
 public class UserDataRepository implements UserRepository {
 
   private final UserDataStoreFactory userDataStoreFactory;
-  private final UserEntityDataMapper userEntityDataMapper;
+  private final EntityDataMapper userEntityDataMapper;
 
   /**
    * Constructs a {@link UserRepository}.
    *
    * @param dataStoreFactory A factory to construct different data source implementations.
-   * @param userEntityDataMapper {@link UserEntityDataMapper}.
+   * @param userEntityDataMapper {@link EntityDataMapper}.
    */
   @Inject
   public UserDataRepository(UserDataStoreFactory dataStoreFactory,
-                            UserEntityDataMapper userEntityDataMapper) {
+                            EntityDataMapper userEntityDataMapper) {
     this.userDataStoreFactory = dataStoreFactory;
     this.userEntityDataMapper = userEntityDataMapper;
   }

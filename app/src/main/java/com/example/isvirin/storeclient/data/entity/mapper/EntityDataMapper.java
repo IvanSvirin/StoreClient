@@ -15,7 +15,11 @@
  */
 package com.example.isvirin.storeclient.data.entity.mapper;
 
+import com.example.isvirin.storeclient.data.entity.CategoryEntity;
+import com.example.isvirin.storeclient.data.entity.ProductEntity;
 import com.example.isvirin.storeclient.data.entity.UserEntity;
+import com.example.isvirin.storeclient.domain.Category;
+import com.example.isvirin.storeclient.domain.Product;
 import com.example.isvirin.storeclient.domain.User;
 
 import java.util.ArrayList;
@@ -30,10 +34,9 @@ import javax.inject.Singleton;
  * domain layer.
  */
 @Singleton
-public class UserEntityDataMapper {
-
+public class EntityDataMapper {
   @Inject
-  public UserEntityDataMapper() {}
+  public EntityDataMapper() {}
 
   /**
    * Transform a {@link UserEntity} into an {@link User}.
@@ -51,8 +54,31 @@ public class UserEntityDataMapper {
       user.setFollowers(userEntity.getFollowers());
       user.setEmail(userEntity.getEmail());
     }
-
     return user;
+  }
+
+  public Product transform(ProductEntity productEntity) {
+    Product product = null;
+    if (productEntity != null) {
+      product = new Product(productEntity.getId());
+      product.setName(productEntity.getName());
+      product.setCategoryId(productEntity.getCategoryId());
+      product.setCode(productEntity.getCode());
+      product.setPrice(productEntity.getPrice());
+      product.setBrand(productEntity.getBrand());
+      product.setDescription(productEntity.getDescription());
+    }
+    return product;
+  }
+
+  public Category transform(CategoryEntity categoryEntity) {
+    Category category = null;
+    if (categoryEntity != null) {
+      category = new Category();
+      category.setId(categoryEntity.getId());
+      category.setName(categoryEntity.getName());
+    }
+    return category;
   }
 
   /**
@@ -70,7 +96,30 @@ public class UserEntityDataMapper {
         userList.add(user);
       }
     }
-
     return userList;
+  }
+
+  public List<Product> transformProducts(Collection<ProductEntity> productEntityCollection) {
+    List<Product> products = new ArrayList<>(20);
+    Product product;
+    for (ProductEntity productEntity : productEntityCollection) {
+      product = transform(productEntity);
+      if (product != null) {
+        products.add(product);
+      }
+    }
+    return products;
+  }
+
+  public List<Category> transformCategories(Collection<CategoryEntity> categoryEntityCollection) {
+    List<Category> categories = new ArrayList<>(20);
+    Category category;
+    for (CategoryEntity categoryEntity : categoryEntityCollection) {
+      category = transform(categoryEntity);
+      if (category != null) {
+        categories.add(category);
+      }
+    }
+    return categories;
   }
 }

@@ -25,7 +25,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * Adaptar that manages a collection of {@link UserModel}.
+ * Adapter that manages a collection of {@link UserModel}.
  */
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHolder> {
 

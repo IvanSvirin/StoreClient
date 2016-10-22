@@ -13,28 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.isvirin.storeclient.domain.repository;
+package com.example.isvirin.storeclient.data.repository.datasource;
 
 
-import com.example.isvirin.storeclient.domain.User;
+import com.example.isvirin.storeclient.data.entity.ProductEntity;
 
 import java.util.List;
 
 import rx.Observable;
 
 /**
- * Interface that represents a UserRepository for getting {@link User} related data.
+ * Interface that represents a data store from where data is retrieved.
  */
-public interface UserRepository {
-  /**
-   * Get an {@link rx.Observable} which will emit a List of {@link User}.
-   */
-  Observable<List<User>> users();
+public interface ProductDataStore {
 
-  /**
-   * Get an {@link rx.Observable} which will emit a {@link User}.
-   *
-   * @param userId The user id used to retrieve user data.
-   */
-  Observable<User> user(final int userId);
+  Observable<List<ProductEntity>> productEntityList();
+
+  Observable<ProductEntity> productEntityDetails(final int id);
+
 }

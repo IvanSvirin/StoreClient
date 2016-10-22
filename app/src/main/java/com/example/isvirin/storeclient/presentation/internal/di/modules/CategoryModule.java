@@ -15,12 +15,8 @@
  */
 package com.example.isvirin.storeclient.presentation.internal.di.modules;
 
-import com.example.isvirin.storeclient.domain.executor.PostExecutionThread;
-import com.example.isvirin.storeclient.domain.executor.ThreadExecutor;
-import com.example.isvirin.storeclient.domain.interactor.GetUserDetails;
-import com.example.isvirin.storeclient.domain.interactor.GetUserList;
+import com.example.isvirin.storeclient.domain.interactor.GetCategoryList;
 import com.example.isvirin.storeclient.domain.interactor.UseCase;
-import com.example.isvirin.storeclient.domain.repository.UserRepository;
 import com.example.isvirin.storeclient.presentation.internal.di.PerActivity;
 
 import javax.inject.Named;
@@ -32,31 +28,15 @@ import dagger.Provides;
  * Dagger module that provides user related collaborators.
  */
 @Module
-public class UserModule {
+public class CategoryModule {
 
-    private int userId = -1;
-
-    public UserModule() {
-    }
-
-    public UserModule(int userId) {
-        this.userId = userId;
+    public CategoryModule() {
     }
 
     @Provides
     @PerActivity
-    @Named("userList")
-    UseCase provideGetUserListUseCase(
-            GetUserList getUserList) {
-        return getUserList;
-    }
-
-    @Provides
-    @PerActivity
-    @Named("userDetails")
-    UseCase provideGetUserDetailsUseCase(
-            UserRepository userRepository, ThreadExecutor threadExecutor,
-            PostExecutionThread postExecutionThread) {
-        return new GetUserDetails(userId, userRepository, threadExecutor, postExecutionThread);
+    @Named("categoryList")
+    UseCase provideGetCategoryListUseCase(GetCategoryList getCategoryList) {
+        return getCategoryList;
     }
 }

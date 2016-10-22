@@ -16,6 +16,8 @@
 package com.example.isvirin.storeclient.data.net;
 
 
+import com.example.isvirin.storeclient.data.entity.CategoryEntity;
+import com.example.isvirin.storeclient.data.entity.ProductEntity;
 import com.example.isvirin.storeclient.data.entity.UserEntity;
 
 import java.util.List;
@@ -27,11 +29,18 @@ import rx.Observable;
  */
 public interface RestApi {
   String API_BASE_URL = "http://www.android10.org/myapi/";
+//  String API_BASE_URL = "http://myshop/api/?apitestmine.";
 
   /** Api url for getting all users */
   String API_URL_GET_USER_LIST = API_BASE_URL + "users.json";
   /** Api url for getting a user profile: Remember to concatenate id + 'json' */
   String API_URL_GET_USER_DETAILS = API_BASE_URL + "user_";
+  /** Api url for getting all products */
+  String API_URL_GET_PRODUCTS = API_BASE_URL + "getProducts={}";
+  /** Api url for getting all categories */
+  String API_URL_GET_CATEGORIES = API_BASE_URL + "getCategories={}";
+  /** Api url for getting a product by id */
+  String API_URL_GET_PRODUCT = API_BASE_URL + "getProductById={\"productId\":";
 
   /**
    * Retrieves an {@link rx.Observable} which will emit a List of {@link UserEntity}.
@@ -44,4 +53,11 @@ public interface RestApi {
    * @param userId The user id used to get user data.
    */
   Observable<UserEntity> userEntityById(final int userId);
+
+
+  Observable<List<ProductEntity>> productEntityList();
+
+  Observable<List<CategoryEntity>> categoryEntityList();
+
+  Observable<ProductEntity> productEntityById(final int id);
 }

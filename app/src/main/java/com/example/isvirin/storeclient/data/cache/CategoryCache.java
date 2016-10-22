@@ -16,38 +16,16 @@
 package com.example.isvirin.storeclient.data.cache;
 
 
-import com.example.isvirin.storeclient.data.entity.UserEntity;
+import com.example.isvirin.storeclient.data.entity.CategoryEntity;
 
 import java.util.List;
 
 import rx.Observable;
 
 /**
- * An interface representing a user Cache.
+ * An interface representing a Category Cache.
  */
-public interface UserCache {
-    /**
-     * Gets an {@link rx.Observable} which will emit a {@link UserEntity}.
-     *
-     * @param userId The user id to retrieve data.
-     */
-    Observable<UserEntity> get(final int userId);
-
-    /**
-     * Puts and element into the cache.
-     *
-     * @param userEntity Element to insert in the cache.
-     */
-    void put(UserEntity userEntity);
-
-    /**
-     * Checks if an element (User) exists in the cache.
-     *
-     * @param userId The id used to look for inside the cache.
-     * @return true if the element is cached, otherwise false.
-     */
-    boolean isCached(final int userId);
-
+public interface CategoryCache {
     /**
      * Checks if the cache is expired.
      *
@@ -62,9 +40,9 @@ public interface UserCache {
 
 
 
-    Observable<List<UserEntity>> getList();
+    Observable<List<CategoryEntity>> getCategories();
 
-    void putList(List<UserEntity> userEntityList);
+    void putCategories(List<CategoryEntity> categoryEntities);
 
-    boolean isListCached();
+    boolean isCategoriesCached();
 }

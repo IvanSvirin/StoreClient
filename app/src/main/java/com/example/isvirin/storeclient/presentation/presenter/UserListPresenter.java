@@ -25,7 +25,7 @@ import com.example.isvirin.storeclient.domain.interactor.DefaultSubscriber;
 import com.example.isvirin.storeclient.domain.interactor.UseCase;
 import com.example.isvirin.storeclient.presentation.exception.ErrorMessageFactory;
 import com.example.isvirin.storeclient.presentation.internal.di.PerActivity;
-import com.example.isvirin.storeclient.presentation.mapper.UserModelDataMapper;
+import com.example.isvirin.storeclient.presentation.mapper.ModelDataMapper;
 import com.example.isvirin.storeclient.presentation.model.UserModel;
 import com.example.isvirin.storeclient.presentation.view.UserListView;
 
@@ -45,11 +45,11 @@ public class UserListPresenter implements Presenter {
   private UserListView viewListView;
 
   private final UseCase getUserListUseCase;
-  private final UserModelDataMapper userModelDataMapper;
+  private final ModelDataMapper userModelDataMapper;
 
   @Inject
   public UserListPresenter(@Named("userList") UseCase getUserListUserCase,
-                           UserModelDataMapper userModelDataMapper) {
+                           ModelDataMapper userModelDataMapper) {
     this.getUserListUseCase = getUserListUserCase;
     this.userModelDataMapper = userModelDataMapper;
   }

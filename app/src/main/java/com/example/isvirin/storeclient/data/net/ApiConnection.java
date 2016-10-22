@@ -27,8 +27,6 @@ import java.net.URL;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
-
-
 /**
  * Api Connection class used to retrieve data from the cloud.
  * Implements {@link java.util.concurrent.Callable} so when executed asynchronously can

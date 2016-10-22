@@ -17,8 +17,7 @@ package com.example.isvirin.storeclient.presentation.presenter;
 
 import android.support.annotation.NonNull;
 
-
-import com.example.isvirin.storeclient.domain.User;
+import com.example.isvirin.storeclient.domain.Product;
 import com.example.isvirin.storeclient.domain.exception.DefaultErrorBundle;
 import com.example.isvirin.storeclient.domain.exception.ErrorBundle;
 import com.example.isvirin.storeclient.domain.interactor.DefaultSubscriber;
@@ -26,8 +25,8 @@ import com.example.isvirin.storeclient.domain.interactor.UseCase;
 import com.example.isvirin.storeclient.presentation.exception.ErrorMessageFactory;
 import com.example.isvirin.storeclient.presentation.internal.di.PerActivity;
 import com.example.isvirin.storeclient.presentation.mapper.ModelDataMapper;
-import com.example.isvirin.storeclient.presentation.model.UserModel;
-import com.example.isvirin.storeclient.presentation.view.UserDetailsView;
+import com.example.isvirin.storeclient.presentation.model.ProductModel;
+import com.example.isvirin.storeclient.presentation.view.ProductDetailsView;
 import com.fernandocejas.frodo.annotation.RxLogSubscriber;
 
 import javax.inject.Inject;
@@ -38,20 +37,20 @@ import javax.inject.Named;
  * layer.
  */
 @PerActivity
-public class UserDetailsPresenter implements Presenter {
+public class ProductDetailsPresenter implements Presenter {
 
-  private UserDetailsView viewDetailsView;
+  private ProductDetailsView viewDetailsView;
 
-  private final UseCase getUserDetailsUseCase;
-  private final ModelDataMapper userModelDataMapper;
+  private final UseCase getProductDetailsUseCase;
+  private final ModelDataMapper productModelDataMapper;
 
   @Inject
-  public UserDetailsPresenter(@Named("userDetails") UseCase getUserDetailsUseCase, ModelDataMapper userModelDataMapper) {
-    this.getUserDetailsUseCase = getUserDetailsUseCase;
-    this.userModelDataMapper = userModelDataMapper;
+  public ProductDetailsPresenter(@Named("productDetails") UseCase getProductDetailsUseCase, ModelDataMapper productModelDataMapper) {
+    this.getProductDetailsUseCase = getProductDetailsUseCase;
+    this.productModelDataMapper = productModelDataMapper;
   }
 
-  public void setView(@NonNull UserDetailsView view) {
+  public void setView(@NonNull ProductDetailsView view) {
     this.viewDetailsView = view;
   }
 
@@ -63,24 +62,24 @@ public class UserDetailsPresenter implements Presenter {
 
   @Override
   public void destroy() {
-    this.getUserDetailsUseCase.unsubscribe();
+    this.getProductDetailsUseCase.unsubscribe();
     this.viewDetailsView = null;
   }
 
   /**
-   * Initializes the presenter by start retrieving user details.
+   * Initializes the presenter by start retrieving product details.
    */
   public void initialize() {
-    this.loadUserDetails();
+    this.loadProductDetails();
   }
 
   /**
    * Loads user details.
    */
-  private void loadUserDetails() {
+  private void loadProductDetails() {
     this.hideViewRetry();
     this.showViewLoading();
-    this.getUserDetails();
+    this.getProductDetails();
   }
 
   private void showViewLoading() {
@@ -100,38 +99,37 @@ public class UserDetailsPresenter implements Presenter {
   }
 
   private void showErrorMessage(ErrorBundle errorBundle) {
-    String errorMessage = ErrorMessageFactory.create(this.viewDetailsView.context(),
-        errorBundle.getException());
+    String errorMessage = ErrorMessageFactory.create(this.viewDetailsView.context(), errorBundle.getException());
     this.viewDetailsView.showError(errorMessage);
   }
 
-  private void showUserDetailsInView(User user) {
-    final UserModel userModel = this.userModelDataMapper.transform(user);
-    this.viewDetailsView.renderUser(userModel);
+  private void showProductDetailsInView(Product product) {
+    final ProductModel productModel = this.productModelDataMapper.transform(product);
+    this.viewDetailsView.renderProduct(productModel);
   }
 
-  private void getUserDetails() {
-    this.getUserDetailsUseCase.execute(new UserDetailsSubscriber());
+  private void getProductDetails() {
+    this.getProductDetailsUseCase.execute(new ProductDetailsSubscriber());
   }
 
   @RxLogSubscriber
-  private final class UserDetailsSubscriber extends DefaultSubscriber<User> {
+  private final class ProductDetailsSubscriber extends DefaultSubscriber<Product> {
 
     @Override
     public void onCompleted() {
-      UserDetailsPresenter.this.hideViewLoading();
+      ProductDetailsPresenter.this.hideViewLoading();
     }
 
     @Override
     public void onError(Throwable e) {
-      UserDetailsPresenter.this.hideViewLoading();
-      UserDetailsPresenter.this.showErrorMessage(new DefaultErrorBundle((Exception) e));
-      UserDetailsPresenter.this.showViewRetry();
+      ProductDetailsPresenter.this.hideViewLoading();
+      ProductDetailsPresenter.this.showErrorMessage(new DefaultErrorBundle((Exception) e));
+      ProductDetailsPresenter.this.showViewRetry();
     }
 
     @Override
-    public void onNext(User user) {
-      UserDetailsPresenter.this.showUserDetailsInView(user);
+    public void onNext(Product product) {
+      ProductDetailsPresenter.this.showProductDetailsInView(product);
     }
   }
 }

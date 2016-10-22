@@ -17,10 +17,10 @@ package com.example.isvirin.storeclient.presentation.internal.di.modules;
 
 import com.example.isvirin.storeclient.domain.executor.PostExecutionThread;
 import com.example.isvirin.storeclient.domain.executor.ThreadExecutor;
-import com.example.isvirin.storeclient.domain.interactor.GetUserDetails;
-import com.example.isvirin.storeclient.domain.interactor.GetUserList;
+import com.example.isvirin.storeclient.domain.interactor.GetProductDetails;
+import com.example.isvirin.storeclient.domain.interactor.GetProductList;
 import com.example.isvirin.storeclient.domain.interactor.UseCase;
-import com.example.isvirin.storeclient.domain.repository.UserRepository;
+import com.example.isvirin.storeclient.domain.repository.ProductRepository;
 import com.example.isvirin.storeclient.presentation.internal.di.PerActivity;
 
 import javax.inject.Named;
@@ -32,31 +32,29 @@ import dagger.Provides;
  * Dagger module that provides user related collaborators.
  */
 @Module
-public class UserModule {
+public class ProductModule {
 
-    private int userId = -1;
+    private int id = -1;
 
-    public UserModule() {
+    public ProductModule() {
     }
 
-    public UserModule(int userId) {
-        this.userId = userId;
-    }
-
-    @Provides
-    @PerActivity
-    @Named("userList")
-    UseCase provideGetUserListUseCase(
-            GetUserList getUserList) {
-        return getUserList;
+    public ProductModule(int id) {
+        this.id = id;
     }
 
     @Provides
     @PerActivity
-    @Named("userDetails")
-    UseCase provideGetUserDetailsUseCase(
-            UserRepository userRepository, ThreadExecutor threadExecutor,
-            PostExecutionThread postExecutionThread) {
-        return new GetUserDetails(userId, userRepository, threadExecutor, postExecutionThread);
+    @Named("productList")
+    UseCase provideGetProductListUseCase(GetProductList getProductList) {
+        return getProductList;
+    }
+
+    @Provides
+    @PerActivity
+    @Named("productDetails")
+    UseCase provideGetProductDetailsUseCase(ProductRepository productRepository, ThreadExecutor threadExecutor,
+                                            PostExecutionThread postExecutionThread) {
+        return new GetProductDetails(id, productRepository, threadExecutor, postExecutionThread);
     }
 }

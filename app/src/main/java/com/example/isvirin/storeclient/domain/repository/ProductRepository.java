@@ -16,25 +16,16 @@
 package com.example.isvirin.storeclient.domain.repository;
 
 
-import com.example.isvirin.storeclient.domain.User;
+import com.example.isvirin.storeclient.domain.Product;
 
 import java.util.List;
 
 import rx.Observable;
 
-/**
- * Interface that represents a UserRepository for getting {@link User} related data.
- */
-public interface UserRepository {
-  /**
-   * Get an {@link rx.Observable} which will emit a List of {@link User}.
-   */
-  Observable<List<User>> users();
+public interface ProductRepository {
 
-  /**
-   * Get an {@link rx.Observable} which will emit a {@link User}.
-   *
-   * @param userId The user id used to retrieve user data.
-   */
-  Observable<User> user(final int userId);
+  Observable<List<Product>> products();
+
+  Observable<Product> product(final int id);
+
 }

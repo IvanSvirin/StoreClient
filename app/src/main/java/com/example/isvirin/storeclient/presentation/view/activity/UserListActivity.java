@@ -17,7 +17,6 @@ import com.example.isvirin.storeclient.presentation.internal.di.components.UserC
 import com.example.isvirin.storeclient.presentation.model.UserModel;
 import com.example.isvirin.storeclient.presentation.view.fragment.UserListFragment;
 
-
 /**
  * Activity that shows a list of Users.
  */

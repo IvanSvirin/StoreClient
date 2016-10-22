@@ -17,7 +17,6 @@ import com.example.isvirin.storeclient.presentation.internal.di.components.UserC
 import com.example.isvirin.storeclient.presentation.internal.di.modules.UserModule;
 import com.example.isvirin.storeclient.presentation.view.fragment.UserDetailsFragment;
 
-
 /**
  * Activity that shows details of a certain user.
  */

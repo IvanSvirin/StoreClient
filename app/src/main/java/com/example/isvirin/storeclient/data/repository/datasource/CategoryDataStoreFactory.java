@@ -18,8 +18,7 @@ package com.example.isvirin.storeclient.data.repository.datasource;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-
-import com.example.isvirin.storeclient.data.cache.UserCache;
+import com.example.isvirin.storeclient.data.cache.CategoryCache;
 import com.example.isvirin.storeclient.data.entity.mapper.EntityJsonMapper;
 import com.example.isvirin.storeclient.data.net.RestApi;
 import com.example.isvirin.storeclient.data.net.RestApiImpl;
@@ -28,53 +27,36 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
- * Factory that creates different implementations of {@link UserDataStore}.
+ * Factory that creates different implementations of {@link CategoryDataStore}.
  */
 @Singleton
-public class UserDataStoreFactory {
+public class CategoryDataStoreFactory {
 
   private final Context context;
-  private final UserCache userCache;
+  private final CategoryCache categoryCache;
 
   @Inject
-  public UserDataStoreFactory(@NonNull Context context, @NonNull UserCache userCache) {
+  public CategoryDataStoreFactory(@NonNull Context context, @NonNull CategoryCache categoryCache) {
     this.context = context.getApplicationContext();
-    this.userCache = userCache;
+    this.categoryCache = categoryCache;
+  }
+
+  public CategoryDataStore createList() {
+    CategoryDataStore categoryDataStore;
+    if (!this.categoryCache.isExpired() && this.categoryCache.isCategoriesCached()) {
+      categoryDataStore = new DiskCategoryDataStore(this.categoryCache);
+    } else {
+      categoryDataStore = createCloudDataStore();
+    }
+    return categoryDataStore;
   }
 
   /**
-   * Create {@link UserDataStore} from a user id.
+   * Create {@link CategoryDataStore} to retrieve data from the Cloud.
    */
-  public UserDataStore create(int userId) {
-    UserDataStore userDataStore;
-
-    if (!this.userCache.isExpired() && this.userCache.isCached(userId)) {
-      userDataStore = new DiskUserDataStore(this.userCache);
-    } else {
-      userDataStore = createCloudDataStore();
-    }
-
-    return userDataStore;
-  }
-
-  public UserDataStore createList() {
-    UserDataStore userDataStore;
-
-    if (!this.userCache.isExpired() && this.userCache.isListCached()) {
-      userDataStore = new DiskUserDataStore(this.userCache);
-    } else {
-      userDataStore = createCloudDataStore();
-    }
-
-    return userDataStore;
-  }
-
-  /**
-   * Create {@link UserDataStore} to retrieve data from the Cloud.
-   */
-  public UserDataStore createCloudDataStore() {
+  public CategoryDataStore createCloudDataStore() {
     EntityJsonMapper entityJsonMapper = new EntityJsonMapper();
     RestApi restApi = new RestApiImpl(this.context, entityJsonMapper);
-    return new CloudUserDataStore(restApi, this.userCache);
+    return new CloudCategoryDataStore(restApi, this.categoryCache);
   }
 }

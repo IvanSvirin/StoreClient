@@ -15,6 +15,8 @@
  */
 package com.example.isvirin.storeclient.data.entity.mapper;
 
+import com.example.isvirin.storeclient.data.entity.CategoryEntity;
+import com.example.isvirin.storeclient.data.entity.ProductEntity;
 import com.example.isvirin.storeclient.data.entity.UserEntity;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -28,12 +30,12 @@ import javax.inject.Inject;
 /**
  * Class used to transform from Strings representing json to valid objects.
  */
-public class UserEntityJsonMapper {
+public class EntityJsonMapper {
 
   private final Gson gson;
 
   @Inject
-  public UserEntityJsonMapper() {
+  public EntityJsonMapper() {
     this.gson = new Gson();
   }
 
@@ -48,8 +50,17 @@ public class UserEntityJsonMapper {
     try {
       Type userEntityType = new TypeToken<UserEntity>() {}.getType();
       UserEntity userEntity = this.gson.fromJson(userJsonResponse, userEntityType);
-
       return userEntity;
+    } catch (JsonSyntaxException jsonException) {
+      throw jsonException;
+    }
+  }
+
+  public ProductEntity transformProductEntity(String userJsonResponse) throws JsonSyntaxException {
+    try {
+      Type productEntityType = new TypeToken<ProductEntity>() {}.getType();
+      ProductEntity productEntity = this.gson.fromJson(userJsonResponse, productEntityType);
+      return productEntity;
     } catch (JsonSyntaxException jsonException) {
       throw jsonException;
     }
@@ -71,6 +82,32 @@ public class UserEntityJsonMapper {
       userEntityCollection = this.gson.fromJson(userListJsonResponse, listOfUserEntityType);
 
       return userEntityCollection;
+    } catch (JsonSyntaxException jsonException) {
+      throw jsonException;
+    }
+  }
+
+  public List<ProductEntity> transformProductEntityCollection(String productListJsonResponse)
+      throws JsonSyntaxException {
+
+    List<ProductEntity> productEntityCollection;
+    try {
+      Type listOfProductEntityType = new TypeToken<List<ProductEntity>>() {}.getType();
+      productEntityCollection = this.gson.fromJson(productListJsonResponse, listOfProductEntityType);
+      return productEntityCollection;
+    } catch (JsonSyntaxException jsonException) {
+      throw jsonException;
+    }
+  }
+
+  public List<CategoryEntity> transformCategoryEntityCollection(String categoryListJsonResponse)
+      throws JsonSyntaxException {
+
+    List<CategoryEntity> categoryEntityCollection;
+    try {
+      Type listOfCategoryEntityType = new TypeToken<List<CategoryEntity>>() {}.getType();
+      categoryEntityCollection = this.gson.fromJson(categoryListJsonResponse, listOfCategoryEntityType);
+      return categoryEntityCollection;
     } catch (JsonSyntaxException jsonException) {
       throw jsonException;
     }

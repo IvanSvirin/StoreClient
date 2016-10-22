@@ -16,37 +16,37 @@
 package com.example.isvirin.storeclient.data.cache;
 
 
-import com.example.isvirin.storeclient.data.entity.UserEntity;
+import com.example.isvirin.storeclient.data.entity.ProductEntity;
 
 import java.util.List;
 
 import rx.Observable;
 
 /**
- * An interface representing a user Cache.
+ * An interface representing a Product Cache.
  */
-public interface UserCache {
+public interface ProductCache {
     /**
-     * Gets an {@link rx.Observable} which will emit a {@link UserEntity}.
+     * Gets an {@link Observable} which will emit a {@link ProductEntity}.
      *
-     * @param userId The user id to retrieve data.
+     * @param id The Product id to retrieve data.
      */
-    Observable<UserEntity> get(final int userId);
+    Observable<ProductEntity> get(final int id);
 
     /**
      * Puts and element into the cache.
      *
-     * @param userEntity Element to insert in the cache.
+     * @param productEntity Element to insert in the cache.
      */
-    void put(UserEntity userEntity);
+    void put(ProductEntity productEntity);
 
     /**
-     * Checks if an element (User) exists in the cache.
+     * Checks if an element (Product) exists in the cache.
      *
-     * @param userId The id used to look for inside the cache.
+     * @param id The id used to look for inside the cache.
      * @return true if the element is cached, otherwise false.
      */
-    boolean isCached(final int userId);
+    boolean isCached(final int id);
 
     /**
      * Checks if the cache is expired.
@@ -62,9 +62,9 @@ public interface UserCache {
 
 
 
-    Observable<List<UserEntity>> getList();
+    Observable<List<ProductEntity>> getProducts();
 
-    void putList(List<UserEntity> userEntityList);
+    void putProducts(List<ProductEntity> productEntities);
 
-    boolean isListCached();
+    boolean isProductsCached();
 }

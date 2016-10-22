@@ -18,8 +18,7 @@ package com.example.isvirin.storeclient.data.repository.datasource;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-
-import com.example.isvirin.storeclient.data.cache.UserCache;
+import com.example.isvirin.storeclient.data.cache.ProductCache;
 import com.example.isvirin.storeclient.data.entity.mapper.EntityJsonMapper;
 import com.example.isvirin.storeclient.data.net.RestApi;
 import com.example.isvirin.storeclient.data.net.RestApiImpl;
@@ -28,53 +27,50 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
- * Factory that creates different implementations of {@link UserDataStore}.
+ * Factory that creates different implementations of {@link ProductDataStore}.
  */
 @Singleton
-public class UserDataStoreFactory {
+public class ProductDataStoreFactory {
 
   private final Context context;
-  private final UserCache userCache;
+  private final ProductCache productCache;
 
   @Inject
-  public UserDataStoreFactory(@NonNull Context context, @NonNull UserCache userCache) {
+  public ProductDataStoreFactory(@NonNull Context context, @NonNull ProductCache productCache) {
     this.context = context.getApplicationContext();
-    this.userCache = userCache;
+    this.productCache = productCache;
   }
 
   /**
-   * Create {@link UserDataStore} from a user id.
+   * Create {@link ProductDataStore} from a user id.
    */
-  public UserDataStore create(int userId) {
-    UserDataStore userDataStore;
+  public ProductDataStore create(int id) {
+    ProductDataStore productDataStore;
 
-    if (!this.userCache.isExpired() && this.userCache.isCached(userId)) {
-      userDataStore = new DiskUserDataStore(this.userCache);
+    if (!this.productCache.isExpired() && this.productCache.isCached(id)) {
+      productDataStore = new DiskProductDataStore(this.productCache);
     } else {
-      userDataStore = createCloudDataStore();
+      productDataStore = createCloudDataStore();
     }
-
-    return userDataStore;
+    return productDataStore;
   }
 
-  public UserDataStore createList() {
-    UserDataStore userDataStore;
-
-    if (!this.userCache.isExpired() && this.userCache.isListCached()) {
-      userDataStore = new DiskUserDataStore(this.userCache);
+  public ProductDataStore createList() {
+    ProductDataStore productDataStore;
+    if (!this.productCache.isExpired() && this.productCache.isProductsCached()) {
+      productDataStore = new DiskProductDataStore(this.productCache);
     } else {
-      userDataStore = createCloudDataStore();
+      productDataStore = createCloudDataStore();
     }
-
-    return userDataStore;
+    return productDataStore;
   }
 
   /**
-   * Create {@link UserDataStore} to retrieve data from the Cloud.
+   * Create {@link ProductDataStore} to retrieve data from the Cloud.
    */
-  public UserDataStore createCloudDataStore() {
+  public ProductDataStore createCloudDataStore() {
     EntityJsonMapper entityJsonMapper = new EntityJsonMapper();
     RestApi restApi = new RestApiImpl(this.context, entityJsonMapper);
-    return new CloudUserDataStore(restApi, this.userCache);
+    return new CloudProductDataStore(restApi, this.productCache);
   }
 }

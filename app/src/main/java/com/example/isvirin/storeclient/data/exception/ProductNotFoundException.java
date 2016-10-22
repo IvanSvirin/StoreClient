@@ -13,28 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.isvirin.storeclient.domain.repository;
-
-
-import com.example.isvirin.storeclient.domain.User;
-
-import java.util.List;
-
-import rx.Observable;
+package com.example.isvirin.storeclient.data.exception;
 
 /**
- * Interface that represents a UserRepository for getting {@link User} related data.
+ * Exception throw by the application when a Product search can't return a valid result.
  */
-public interface UserRepository {
-  /**
-   * Get an {@link rx.Observable} which will emit a List of {@link User}.
-   */
-  Observable<List<User>> users();
+public class ProductNotFoundException extends Exception {
 
-  /**
-   * Get an {@link rx.Observable} which will emit a {@link User}.
-   *
-   * @param userId The user id used to retrieve user data.
-   */
-  Observable<User> user(final int userId);
+  public ProductNotFoundException() {
+    super();
+  }
+
+  public ProductNotFoundException(final String message) {
+    super(message);
+  }
+
+  public ProductNotFoundException(final String message, final Throwable cause) {
+    super(message, cause);
+  }
+
+  public ProductNotFoundException(final Throwable cause) {
+    super(cause);
+  }
 }

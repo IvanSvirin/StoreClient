@@ -18,7 +18,8 @@ package com.example.isvirin.storeclient.presentation.navigation;
 import android.content.Context;
 import android.content.Intent;
 
-
+import com.example.isvirin.storeclient.presentation.view.activity.ProductDetailsActivity;
+import com.example.isvirin.storeclient.presentation.view.activity.ProductListActivity;
 import com.example.isvirin.storeclient.presentation.view.activity.UserDetailsActivity;
 import com.example.isvirin.storeclient.presentation.view.activity.UserListActivity;
 
@@ -30,7 +31,6 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class Navigator {
-
   @Inject
   public Navigator() {
     //empty
@@ -58,5 +58,17 @@ public class Navigator {
       Intent intentToLaunch = UserDetailsActivity.getCallingIntent(context, userId);
       context.startActivity(intentToLaunch);
     }
+  }
+
+  public void navigateToProductDetails(Context context, int id) {
+    if (context != null) {
+      Intent intentToLaunch = ProductDetailsActivity.getCallingIntent(context, id);
+      context.startActivity(intentToLaunch);
+    }
+  }
+
+  public void navigateToProductList(Context context, int id) {
+    Intent intentToLaunch = ProductListActivity.getCallingIntent(context);
+    context.startActivity(intentToLaunch);
   }
 }

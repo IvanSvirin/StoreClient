@@ -16,8 +16,12 @@
 package com.example.isvirin.storeclient.presentation.mapper;
 
 
+import com.example.isvirin.storeclient.domain.Category;
+import com.example.isvirin.storeclient.domain.Product;
 import com.example.isvirin.storeclient.domain.User;
 import com.example.isvirin.storeclient.presentation.internal.di.PerActivity;
+import com.example.isvirin.storeclient.presentation.model.CategoryModel;
+import com.example.isvirin.storeclient.presentation.model.ProductModel;
 import com.example.isvirin.storeclient.presentation.model.UserModel;
 
 import java.util.ArrayList;
@@ -31,10 +35,10 @@ import javax.inject.Inject;
  * presentation layer.
  */
 @PerActivity
-public class UserModelDataMapper {
+public class ModelDataMapper {
 
   @Inject
-  public UserModelDataMapper() {}
+  public ModelDataMapper() {}
 
   /**
    * Transform a {@link User} into an {@link UserModel}.
@@ -52,8 +56,31 @@ public class UserModelDataMapper {
     userModel.setEmail(user.getEmail());
     userModel.setDescription(user.getDescription());
     userModel.setFollowers(user.getFollowers());
-
     return userModel;
+  }
+
+  public ProductModel transform(Product product) {
+    if (product == null) {
+      throw new IllegalArgumentException("Cannot transform a null value");
+    }
+    ProductModel productModel = new ProductModel(product.getId());
+    productModel.setName(product.getName());
+    productModel.setCategoryId(product.getCategoryId());
+    productModel.setCode(product.getCode());
+    productModel.setPrice(product.getPrice());
+    productModel.setBrand(product.getBrand());
+    productModel.setDescription(product.getDescription());
+    return productModel;
+  }
+
+  public CategoryModel transform(Category category) {
+    if (category == null) {
+      throw new IllegalArgumentException("Cannot transform a null value");
+    }
+    CategoryModel categoryModel = new CategoryModel();
+    categoryModel.setId(category.getId());
+    categoryModel.setName(category.getName());
+    return categoryModel;
   }
 
   /**
@@ -73,7 +100,34 @@ public class UserModelDataMapper {
     } else {
       userModelsCollection = Collections.emptyList();
     }
-
     return userModelsCollection;
+  }
+
+  public Collection<ProductModel> transformProducts(Collection<Product> productCollection) {
+    Collection<ProductModel> productModelCollection;
+
+    if (productCollection != null && !productCollection.isEmpty()) {
+      productModelCollection = new ArrayList<>();
+      for (Product product : productCollection) {
+        productModelCollection.add(transform(product));
+      }
+    } else {
+      productModelCollection = Collections.emptyList();
+    }
+    return productModelCollection;
+  }
+
+  public Collection<CategoryModel> transformCategories(Collection<Category> categoryCollection) {
+    Collection<CategoryModel> categoryModelCollection;
+
+    if (categoryCollection != null && !categoryCollection.isEmpty()) {
+      categoryModelCollection = new ArrayList<>();
+      for (Category category : categoryCollection) {
+        categoryModelCollection.add(transform(category));
+      }
+    } else {
+      categoryModelCollection = Collections.emptyList();
+    }
+    return categoryModelCollection;
   }
 }

@@ -36,7 +36,6 @@ import rx.Observable;
  */
 @Singleton
 public class UserCacheImpl implements UserCache {
-
     private static final String SETTINGS_FILE_NAME = "file_name";
     private static final String SETTINGS_KEY_LAST_CACHE_UPDATE = "last_cache_update";
 
@@ -113,7 +112,6 @@ public class UserCacheImpl implements UserCache {
                 setLastCacheUpdateTimeMillis();
             }
         }
-
     }
 
     @Override
@@ -137,8 +135,8 @@ public class UserCacheImpl implements UserCache {
 
     @Override
     public boolean isListCached() {
-        File userEntitiyListFile = this.buildFile(-1);
-        return this.fileManager.exists(userEntitiyListFile);
+        File userEntityListFile = this.buildFile(-1);
+        return this.fileManager.exists(userEntityListFile);
     }
 
     @Override
