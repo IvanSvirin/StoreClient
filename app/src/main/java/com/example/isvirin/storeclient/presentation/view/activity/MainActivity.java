@@ -30,7 +30,7 @@ public class MainActivity extends BaseActivity {
    */
   @OnClick(R.id.btn_LoadData)
   void navigateToUserList() {
-//    this.navigator.navigateToCategoryList(this);
-    this.navigator.navigateToUserList(this);
+    this.navigator.navigateToCategoryList(this);
+//    this.navigator.navigateToUserList(this);
   }
 }
