@@ -18,6 +18,7 @@ package com.example.isvirin.storeclient.presentation.navigation;
 import android.content.Context;
 import android.content.Intent;
 
+import com.example.isvirin.storeclient.presentation.view.activity.CategoryListActivity;
 import com.example.isvirin.storeclient.presentation.view.activity.ProductDetailsActivity;
 import com.example.isvirin.storeclient.presentation.view.activity.ProductListActivity;
 import com.example.isvirin.storeclient.presentation.view.activity.UserDetailsActivity;
@@ -69,6 +70,11 @@ public class Navigator {
 
   public void navigateToProductList(Context context, int id) {
     Intent intentToLaunch = ProductListActivity.getCallingIntent(context);
+    context.startActivity(intentToLaunch);
+  }
+
+  public void navigateToCategoryList(Context context) {
+    Intent intentToLaunch = CategoryListActivity.getCallingIntent(context);
     context.startActivity(intentToLaunch);
   }
 }

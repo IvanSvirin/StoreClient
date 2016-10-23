@@ -17,13 +17,20 @@ package com.example.isvirin.storeclient.presentation.internal.di.modules;
 
 import android.content.Context;
 
-
+import com.example.isvirin.storeclient.data.cache.CategoryCache;
+import com.example.isvirin.storeclient.data.cache.CategoryCacheImpl;
+import com.example.isvirin.storeclient.data.cache.ProductCache;
+import com.example.isvirin.storeclient.data.cache.ProductCacheImpl;
 import com.example.isvirin.storeclient.data.cache.UserCache;
 import com.example.isvirin.storeclient.data.cache.UserCacheImpl;
 import com.example.isvirin.storeclient.data.executor.JobExecutor;
+import com.example.isvirin.storeclient.data.repository.CategoryDataRepository;
+import com.example.isvirin.storeclient.data.repository.ProductDataRepository;
 import com.example.isvirin.storeclient.data.repository.UserDataRepository;
 import com.example.isvirin.storeclient.domain.executor.PostExecutionThread;
 import com.example.isvirin.storeclient.domain.executor.ThreadExecutor;
+import com.example.isvirin.storeclient.domain.repository.CategoryRepository;
+import com.example.isvirin.storeclient.domain.repository.ProductRepository;
 import com.example.isvirin.storeclient.domain.repository.UserRepository;
 import com.example.isvirin.storeclient.presentation.AndroidApplication;
 import com.example.isvirin.storeclient.presentation.UIThread;
@@ -70,7 +77,31 @@ public class ApplicationModule {
 
   @Provides
   @Singleton
+  ProductCache provideProductCache(ProductCacheImpl productCache) {
+    return productCache;
+  }
+
+  @Provides
+  @Singleton
+  CategoryCache provideCategoryCache(CategoryCacheImpl categoryCache) {
+    return categoryCache;
+  }
+
+  @Provides
+  @Singleton
   UserRepository provideUserRepository(UserDataRepository userDataRepository) {
     return userDataRepository;
+  }
+
+  @Provides
+  @Singleton
+  ProductRepository provideProductRepository(ProductDataRepository productDataRepository) {
+    return productDataRepository;
+  }
+
+  @Provides
+  @Singleton
+  CategoryRepository provideCategoryRepository(CategoryDataRepository categoryDataRepository) {
+    return categoryDataRepository;
   }
 }

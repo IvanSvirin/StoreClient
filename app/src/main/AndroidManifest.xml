@@ -30,6 +30,22 @@
             android:name=".presentation.view.activity.UserDetailsActivity"
             android:label="@string/activity_title_user_details">
         </activity>
+
+        <activity
+            android:name=".presentation.view.activity.ProductDetailsActivity"
+            android:label="@string/activity_title_product_details">
+        </activity>
+
+        <activity
+            android:name=".presentation.view.activity.ProductListActivity"
+            android:label="@string/activity_title_product_list">
+        </activity>
+
+        <activity
+            android:name=".presentation.view.activity.CategoryListActivity"
+            android:label="@string/activity_title_category_list">
+        </activity>
+
     </application>
 
 </manifest>

@@ -22,7 +22,7 @@ import com.example.isvirin.storeclient.presentation.model.UserModel;
 import com.example.isvirin.storeclient.presentation.presenter.UserListPresenter;
 import com.example.isvirin.storeclient.presentation.view.UserListView;
 import com.example.isvirin.storeclient.presentation.view.adapter.UsersAdapter;
-import com.example.isvirin.storeclient.presentation.view.adapter.UsersLayoutManager;
+import com.example.isvirin.storeclient.presentation.view.adapter.CommonLayoutManager;
 
 import java.util.Collection;
 
@@ -49,7 +49,8 @@ public class UserListFragment extends BaseFragment implements UserListView {
   @Inject
   UsersAdapter usersAdapter;
 
-  @Bind(R.id.rv_users) RecyclerView rv_users;
+  @Bind(R.id.rv_users)
+  RecyclerView rv_users;
   @Bind(R.id.rl_progress)
   RelativeLayout rl_progress;
   @Bind(R.id.rl_retry)
@@ -174,7 +175,7 @@ public class UserListFragment extends BaseFragment implements UserListView {
 
   private void setupRecyclerView() {
     this.usersAdapter.setOnItemClickListener(onItemClickListener);
-    this.rv_users.setLayoutManager(new UsersLayoutManager(context()));
+    this.rv_users.setLayoutManager(new CommonLayoutManager(context()));
     this.rv_users.setAdapter(usersAdapter);
   }
 
