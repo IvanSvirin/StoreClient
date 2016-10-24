@@ -42,7 +42,7 @@ public abstract class BaseActivity extends Activity {
   /**
    * Get the Main Application component for dependency injection.
    *
-   * @return {@link com.example.isvirin.storeclient.presentation.internal.di.components.ApplicationComponent}
+   * @return {@link ApplicationComponent}
    */
   protected ApplicationComponent getApplicationComponent() {
     return ((AndroidApplication) getApplication()).getApplicationComponent();

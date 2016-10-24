@@ -1,6 +1,8 @@
 package com.example.isvirin.storeclient.presentation.view.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.view.MenuItem;
 import android.widget.Button;
 
 
@@ -13,7 +15,7 @@ import butterknife.OnClick;
 /**
  * Main application screen. This is the app entry point.
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener{
 
   @Bind(R.id.btn_LoadData)
   Button btn_LoadData;
@@ -32,5 +34,10 @@ public class MainActivity extends BaseActivity {
   void navigateToUserList() {
     this.navigator.navigateToCategoryList(this);
 //    this.navigator.navigateToUserList(this);
+  }
+
+  @Override
+  public boolean onNavigationItemSelected(MenuItem item) {
+    return false;
   }
 }

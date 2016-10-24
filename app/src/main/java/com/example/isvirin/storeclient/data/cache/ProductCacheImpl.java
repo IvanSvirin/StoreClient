@@ -155,7 +155,7 @@ public class ProductCacheImpl implements ProductCache {
             StringBuilder fileNameBuilder = new StringBuilder();
             fileNameBuilder.append(this.cacheDir.getPath());
             fileNameBuilder.append(File.separator);
-            fileNameBuilder.append(DEFAULT_FILE_NAME);
+            fileNameBuilder.append(DEFAULT_PRODUCTS_FILE_NAME);
 
             return new File(fileNameBuilder.toString());
         }
