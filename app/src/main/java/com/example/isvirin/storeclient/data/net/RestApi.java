@@ -29,16 +29,19 @@ import rx.Observable;
  */
 public interface RestApi {
 //  String API_BASE_URL = "http://www.android10.org/myapi/";
-  String API_BASE_URL = "http://myshop/api/?apitestmine.";
+//  String API_BASE_URL = "http://myshop/api/?apitestmine.";
+  String API_BASE_URL = "http://www.softomate.net/ext/json/";
 
   /** Api url for getting all users */
   String API_URL_GET_USER_LIST = API_BASE_URL + "users.json";
   /** Api url for getting a user profile: Remember to concatenate id + 'json' */
   String API_URL_GET_USER_DETAILS = API_BASE_URL + "user_";
   /** Api url for getting all products */
-  String API_URL_GET_PRODUCTS = API_BASE_URL + "getProducts={}";
+  String API_URL_GET_PRODUCTS = API_BASE_URL + "products.json";
+//  String API_URL_GET_PRODUCTS = API_BASE_URL + "getProducts={}";
   /** Api url for getting all categories */
-  String API_URL_GET_CATEGORIES = API_BASE_URL + "getCategories={}";
+  String API_URL_GET_CATEGORIES = API_BASE_URL + "categories.json";
+//  String API_URL_GET_CATEGORIES = API_BASE_URL + "getCategories={}";
   /** Api url for getting a product by id */
   String API_URL_GET_PRODUCT = API_BASE_URL + "getProductById={\"productId\":";
 
