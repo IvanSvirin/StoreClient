@@ -23,11 +23,11 @@ import com.example.isvirin.storeclient.presentation.internal.di.components.Dagge
 import com.example.isvirin.storeclient.presentation.internal.di.modules.ApplicationModule;
 import com.squareup.leakcanary.LeakCanary;
 
+
 /**
  * Android Main Application
  */
 public class AndroidApplication extends Application {
-
   private ApplicationComponent applicationComponent;
 
   @Override

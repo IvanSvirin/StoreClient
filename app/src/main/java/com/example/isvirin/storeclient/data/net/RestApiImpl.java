@@ -19,7 +19,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-
 import com.example.isvirin.storeclient.data.entity.CategoryEntity;
 import com.example.isvirin.storeclient.data.entity.ProductEntity;
 import com.example.isvirin.storeclient.data.entity.UserEntity;
