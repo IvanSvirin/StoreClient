@@ -46,17 +46,15 @@ public class UserModule {
     @Provides
     @PerActivity
     @Named("userList")
-    UseCase provideGetUserListUseCase(
-            GetUserList getUserList) {
+    UseCase provideGetUserListUseCase(GetUserList getUserList) {
         return getUserList;
     }
 
     @Provides
     @PerActivity
     @Named("userDetails")
-    UseCase provideGetUserDetailsUseCase(
-            UserRepository userRepository, ThreadExecutor threadExecutor,
-            PostExecutionThread postExecutionThread) {
+    UseCase provideGetUserDetailsUseCase(UserRepository userRepository, ThreadExecutor threadExecutor,
+                                         PostExecutionThread postExecutionThread) {
         return new GetUserDetails(userId, userRepository, threadExecutor, postExecutionThread);
     }
 }

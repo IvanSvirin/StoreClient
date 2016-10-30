@@ -4,8 +4,11 @@ import android.content.Context;
 
 import com.example.isvirin.storeclient.data.cache.serializer.JsonSerializer;
 import com.example.isvirin.storeclient.data.entity.CategoryEntity;
+import com.example.isvirin.storeclient.data.entity.CategoryEntityDao;
 import com.example.isvirin.storeclient.data.exception.CategoryNotFoundException;
 import com.example.isvirin.storeclient.domain.executor.ThreadExecutor;
+
+import org.greenrobot.greendao.query.Query;
 
 import java.io.File;
 import java.util.List;
@@ -31,25 +34,27 @@ public class CategoryCacheImpl implements CategoryCache {
     private final File cacheDir;
     private final JsonSerializer serializer;
     private final FileManager fileManager;
+    private final GetDaoSession getDaoSession;
     private final ThreadExecutor threadExecutor;
 
     /**
      * Constructor of the class {@link CategoryCacheImpl}.
      *
-     * @param context                A
+     * @param context                 A
      * @param categoryCacheSerializer {@link JsonSerializer} for object serialization.
-     * @param fileManager            {@link FileManager} for saving serialized objects to the file system.
+     * @param fileManager             {@link FileManager} for saving serialized objects to the file system.
      */
     @Inject
-    public CategoryCacheImpl(Context context, JsonSerializer categoryCacheSerializer,
+    public CategoryCacheImpl(Context context, JsonSerializer categoryCacheSerializer, GetDaoSession getDaoSession,
                              FileManager fileManager, ThreadExecutor executor) {
-        if (context == null || categoryCacheSerializer == null || fileManager == null || executor == null) {
+        if (context == null || categoryCacheSerializer == null || fileManager == null || getDaoSession == null || executor == null) {
             throw new IllegalArgumentException("Invalid null parameter");
         }
         this.context = context.getApplicationContext();
         this.cacheDir = this.context.getCacheDir();
         this.serializer = categoryCacheSerializer;
         this.fileManager = fileManager;
+        this.getDaoSession = getDaoSession;
         this.threadExecutor = executor;
     }
 
@@ -72,25 +77,33 @@ public class CategoryCacheImpl implements CategoryCache {
     @Override
     public Observable<List<CategoryEntity>> getCategories() {
         return Observable.create(subscriber -> {
-            File categoryEntitiesFile = CategoryCacheImpl.this.buildFile(-1);
-            String fileContent = CategoryCacheImpl.this.fileManager.readFileContent(categoryEntitiesFile);
-            List<CategoryEntity> categoryEntities = CategoryCacheImpl.this.serializer.deserializeCategories(fileContent);
+//            File categoryEntitiesFile = CategoryCacheImpl.this.buildFile(-1);
+//            String fileContent = CategoryCacheImpl.this.fileManager.readFileContent(categoryEntitiesFile);
+//            List<CategoryEntity> categoryEntities = CategoryCacheImpl.this.serializer.deserializeCategories(fileContent);
+
+            CategoryEntityDao categoryEntityDao = getDaoSession.getDaoSession().getCategoryEntityDao();
+            Query<CategoryEntity> query = categoryEntityDao.queryBuilder().orderAsc(CategoryEntityDao.Properties.Name).build();
+            List<CategoryEntity> categoryEntities = query.list();
             if (categoryEntities != null) {
                 subscriber.onNext(categoryEntities);
                 subscriber.onCompleted();
             } else {
                 subscriber.onError(new CategoryNotFoundException());
             }
-        });    }
+        });
+    }
 
     @Override
     public void putCategories(List<CategoryEntity> categoryEntities) {
         if (categoryEntities != null) {
             File categoryEntitiesFile = this.buildFile(-1);
             if (!isCategoriesCached()) {
-                String jsonString = this.serializer.serializeCategories(categoryEntities);
-                this.executeAsynchronously(new CategoryCacheImpl.CacheWriter(this.fileManager, categoryEntitiesFile,
-                        jsonString));
+//                String jsonString = this.serializer.serializeCategories(categoryEntities);
+//                this.executeAsynchronously(new CategoryCacheImpl.CacheWriter(this.fileManager, categoryEntitiesFile, jsonString));
+                CategoryEntityDao categoryEntityDao = getDaoSession.getDaoSession().getCategoryEntityDao();
+                for (CategoryEntity categoryEntity : categoryEntities) {
+                    categoryEntityDao.insert(categoryEntity);
+                }
                 setLastCacheUpdateTimeMillis();
             }
         }

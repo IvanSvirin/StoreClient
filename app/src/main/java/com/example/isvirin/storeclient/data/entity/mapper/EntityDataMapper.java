@@ -75,7 +75,7 @@ public class EntityDataMapper {
     Category category = null;
     if (categoryEntity != null) {
       category = new Category();
-      category.setId(categoryEntity.getId());
+      category.setId(categoryEntity.getCategoryId());
       category.setName(categoryEntity.getName());
     }
     return category;

@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'com.fernandocejas.frodo'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 24
@@ -24,8 +25,8 @@ android {
         enabled = true
     }
     compileOptions {
-        targetCompatibility 1.8
-        sourceCompatibility 1.8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -54,6 +55,7 @@ dependencies {
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 
     compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'org.greenrobot:greendao:3.2.0'
 
     compile group: 'com.google.code.gson', name: 'gson', version: '2.3.1'
     compile group: 'com.squareup.okhttp', name: 'okhttp', version: '2.7.5'

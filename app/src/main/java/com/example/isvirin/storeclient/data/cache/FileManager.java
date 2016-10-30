@@ -118,11 +118,8 @@ public class FileManager {
    * @param key A string for the key that will be used to retrieve the value in the future.
    * @param value A long representing the value to be inserted.
    */
-  public void writeToPreferences(Context context, String preferenceFileName, String key,
-                                 long value) {
-
-    SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceFileName,
-        Context.MODE_PRIVATE);
+  public void writeToPreferences(Context context, String preferenceFileName, String key, long value) {
+    SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceFileName, Context.MODE_PRIVATE);
     SharedPreferences.Editor editor = sharedPreferences.edit();
     editor.putLong(key, value);
     editor.apply();
@@ -137,8 +134,7 @@ public class FileManager {
    * @return A long representing the value retrieved from the preferences file.
    */
   public long getFromPreferences(Context context, String preferenceFileName, String key) {
-    SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceFileName,
-        Context.MODE_PRIVATE);
+    SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceFileName, Context.MODE_PRIVATE);
     return sharedPreferences.getLong(key, 0);
   }
 }
