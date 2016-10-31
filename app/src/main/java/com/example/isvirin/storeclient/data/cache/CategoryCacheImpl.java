@@ -111,8 +111,13 @@ public class CategoryCacheImpl implements CategoryCache {
 
     @Override
     public boolean isCategoriesCached() {
-        File productEntitiesFile = this.buildFile(-1);
-        return this.fileManager.exists(productEntitiesFile);
+        if (getDaoSession.getDaoSession().getCategoryEntityDao().count() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+//        File productEntitiesFile = this.buildFile(-1);
+//        return this.fileManager.exists(productEntitiesFile);
     }
 
     /**
