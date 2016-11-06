@@ -16,25 +16,15 @@
 package com.example.isvirin.storeclient.data.repository.datasource;
 
 
-import com.example.isvirin.storeclient.data.entity.UserEntity;
+import com.example.isvirin.storeclient.data.entity.BrandEntity;
 
 import java.util.List;
 
 import rx.Observable;
 
-/**
- * Interface that represents a data store from where data is retrieved.
- */
-public interface UserDataStore {
-  /**
-   * Get an {@link rx.Observable} which will emit a List of {@link UserEntity}.
-   */
-  Observable<List<UserEntity>> userEntityList();
+public interface BrandDataStore {
 
-  /**
-   * Get an {@link rx.Observable} which will emit a {@link UserEntity} by its id.
-   *
-   * @param userId The id to retrieve user data.
-   */
-  Observable<UserEntity> userEntityDetails(final int userId);
+  Observable<List<BrandEntity>> brandEntityList();
+
+  Observable<List<BrandEntity>> brandEntitiesByCategory(final int id);
 }

@@ -15,34 +15,24 @@
  */
 package com.example.isvirin.storeclient.domain.interactor;
 
-
-import com.example.isvirin.storeclient.domain.User;
 import com.example.isvirin.storeclient.domain.executor.PostExecutionThread;
 import com.example.isvirin.storeclient.domain.executor.ThreadExecutor;
-import com.example.isvirin.storeclient.domain.repository.UserRepository;
+import com.example.isvirin.storeclient.domain.repository.BrandRepository;
 
 import javax.inject.Inject;
 
 import rx.Observable;
 
-/**
- * This class is an implementation of {@link UseCase} that represents a use case for
- * retrieving data related to an specific {@link User}.
- */
-public class GetUserDetails extends UseCase {
-
-  private final int userId;
-  private final UserRepository userRepository;
+public class GetBrandList extends UseCase {
+  private final BrandRepository brandRepository;
 
   @Inject
-  public GetUserDetails(int userId, UserRepository userRepository,
-                        ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
+  public GetBrandList(BrandRepository brandRepository, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
     super(threadExecutor, postExecutionThread);
-    this.userId = userId;
-    this.userRepository = userRepository;
+    this.brandRepository = brandRepository;
   }
 
-  @Override protected Observable buildUseCaseObservable() {
-    return this.userRepository.user(this.userId);
+  @Override public Observable buildUseCaseObservable() {
+    return this.brandRepository.brands();
   }
 }

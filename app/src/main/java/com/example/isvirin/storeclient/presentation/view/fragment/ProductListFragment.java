@@ -168,7 +168,7 @@ public class ProductListFragment extends BaseFragment implements ProductListView
     }
 
     /**
-     * Loads all users.
+     * Loads all products.
      */
     private void loadProductList() {
         this.productListPresenter.initialize();

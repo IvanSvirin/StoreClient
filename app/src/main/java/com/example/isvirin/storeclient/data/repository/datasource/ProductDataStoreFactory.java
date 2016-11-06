@@ -46,7 +46,6 @@ public class ProductDataStoreFactory {
    */
   public ProductDataStore create(int id) {
     ProductDataStore productDataStore;
-
     if (!this.productCache.isExpired() && this.productCache.isCached(id)) {
       productDataStore = new DiskProductDataStore(this.productCache);
     } else {

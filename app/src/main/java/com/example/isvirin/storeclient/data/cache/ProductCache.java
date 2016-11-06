@@ -34,13 +34,6 @@ public interface ProductCache {
     Observable<ProductEntity> get(final int id);
 
     /**
-     * Puts and element into the cache.
-     *
-     * @param productEntity Element to insert in the cache.
-     */
-    void put(ProductEntity productEntity);
-
-    /**
      * Checks if an element (Product) exists in the cache.
      *
      * @param id The id used to look for inside the cache.

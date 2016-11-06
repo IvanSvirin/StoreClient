@@ -16,13 +16,13 @@
 package com.example.isvirin.storeclient.presentation.mapper;
 
 
+import com.example.isvirin.storeclient.domain.Brand;
 import com.example.isvirin.storeclient.domain.Category;
 import com.example.isvirin.storeclient.domain.Product;
-import com.example.isvirin.storeclient.domain.User;
 import com.example.isvirin.storeclient.presentation.internal.di.PerActivity;
+import com.example.isvirin.storeclient.presentation.model.BrandModel;
 import com.example.isvirin.storeclient.presentation.model.CategoryModel;
 import com.example.isvirin.storeclient.presentation.model.ProductModel;
-import com.example.isvirin.storeclient.presentation.model.UserModel;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,7 +31,7 @@ import java.util.Collections;
 import javax.inject.Inject;
 
 /**
- * Mapper class used to transform {@link User} (in the domain layer) to {@link UserModel} in the
+ * Mapper class used to transform {@link Product} (in the domain layer) to {@link ProductModel} in the
  * presentation layer.
  */
 @PerActivity
@@ -39,25 +39,6 @@ public class ModelDataMapper {
 
   @Inject
   public ModelDataMapper() {}
-
-  /**
-   * Transform a {@link User} into an {@link UserModel}.
-   *
-   * @param user Object to be transformed.
-   * @return {@link UserModel}.
-   */
-  public UserModel transform(User user) {
-    if (user == null) {
-      throw new IllegalArgumentException("Cannot transform a null value");
-    }
-    UserModel userModel = new UserModel(user.getUserId());
-    userModel.setCoverUrl(user.getCoverUrl());
-    userModel.setFullName(user.getFullName());
-    userModel.setEmail(user.getEmail());
-    userModel.setDescription(user.getDescription());
-    userModel.setFollowers(user.getFollowers());
-    return userModel;
-  }
 
   public ProductModel transform(Product product) {
     if (product == null) {
@@ -83,24 +64,15 @@ public class ModelDataMapper {
     return categoryModel;
   }
 
-  /**
-   * Transform a Collection of {@link User} into a Collection of {@link UserModel}.
-   *
-   * @param usersCollection Objects to be transformed.
-   * @return List of {@link UserModel}.
-   */
-  public Collection<UserModel> transform(Collection<User> usersCollection) {
-    Collection<UserModel> userModelsCollection;
-
-    if (usersCollection != null && !usersCollection.isEmpty()) {
-      userModelsCollection = new ArrayList<>();
-      for (User user : usersCollection) {
-        userModelsCollection.add(transform(user));
-      }
-    } else {
-      userModelsCollection = Collections.emptyList();
+  public BrandModel transform(Brand brand) {
+    if (brand == null) {
+      throw new IllegalArgumentException("Cannot transform a null value");
     }
-    return userModelsCollection;
+    BrandModel brandModel = new BrandModel();
+    brandModel.setId(brand.getId());
+    brandModel.setCategoryId(brand.getCategoryId());
+    brandModel.setName(brand.getName());
+    return brandModel;
   }
 
   public Collection<ProductModel> transformProducts(Collection<Product> productCollection) {
@@ -129,5 +101,18 @@ public class ModelDataMapper {
       categoryModelCollection = Collections.emptyList();
     }
     return categoryModelCollection;
+  }
+
+  public Collection<BrandModel> transformBrands(Collection<Brand> brandCollection) {
+    Collection<BrandModel> brandModelCollection;
+    if (brandCollection != null && !brandCollection.isEmpty()) {
+      brandModelCollection = new ArrayList<>();
+      for (Brand brand : brandCollection) {
+        brandModelCollection.add(transform(brand));
+      }
+    } else {
+      brandModelCollection = Collections.emptyList();
+    }
+    return brandModelCollection;
   }
 }

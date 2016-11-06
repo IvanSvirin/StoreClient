@@ -6,18 +6,8 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="@dimen/lv_row_padding"
-    android:background="@drawable/selector_item_user"
+    android:background="@drawable/selector_item"
     >
-
-  <ImageView
-      android:id="@+id/avatar"
-      android:layout_width="@dimen/lv_row_icon_width"
-      android:layout_height="@dimen/lv_row_icon_width"
-      android:src="@drawable/ic_launcher"
-      android:paddingLeft="@dimen/lv_row_icon_padding"
-      android:paddingRight="@dimen/lv_row_icon_padding"
-      android:contentDescription="@string/string_content_description"
-      />
 
   <TextView
       android:id="@+id/title"

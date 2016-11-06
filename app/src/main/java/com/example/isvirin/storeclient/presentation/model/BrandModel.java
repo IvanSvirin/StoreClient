@@ -13,18 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.isvirin.storeclient.domain.repository;
+package com.example.isvirin.storeclient.presentation.model;
 
+public class BrandModel {
+  private int id;
+  private int categoryId;
+  private String name;
 
-import com.example.isvirin.storeclient.domain.Product;
+  public BrandModel() {
+  }
 
-import java.util.List;
+  public int getId() {
+    return id;
+  }
 
-import rx.Observable;
+  public void setId(int id) {
+    this.id = id;
+  }
 
-public interface ProductRepository {
+  public int getCategoryId() {
+    return categoryId;
+  }
 
-  Observable<List<Product>> products();
+  public void setCategoryId(int categoryId) {
+    this.categoryId = categoryId;
+  }
 
-  Observable<Product> product(final int id);
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
 }

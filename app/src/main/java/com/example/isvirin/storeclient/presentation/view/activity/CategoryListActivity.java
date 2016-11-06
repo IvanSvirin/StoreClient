@@ -54,6 +54,6 @@ public class CategoryListActivity extends BaseActivity implements HasComponent<C
     }
 
     public void onCategoryClicked(CategoryModel categoryModel) {
-        this.navigator.navigateToProductList(this, categoryModel.getId());
+        this.navigator.navigateToBrandList(this, categoryModel.getId());
     }
 }

@@ -18,7 +18,7 @@ import com.example.isvirin.storeclient.presentation.internal.di.modules.ProductM
 import com.example.isvirin.storeclient.presentation.view.fragment.ProductDetailsFragment;
 
 /**
- * Activity that shows details of a certain user.
+ * Activity that shows details of a certain product.
  */
 public class ProductDetailsActivity extends BaseActivity implements HasComponent<ProductComponent> {
   private static final String INTENT_EXTRA_PARAM_PRODUCT_ID = "INTENT_PARAM_PRODUCT_ID";

@@ -27,7 +27,6 @@ import rx.Observable;
  * {@link ProductDataStore} implementation based on file system data store.
  */
 class DiskProductDataStore implements ProductDataStore {
-
   private final ProductCache productCache;
 
   /**

@@ -18,19 +18,17 @@ package com.example.isvirin.storeclient.presentation.internal.di.components;
 
 import com.example.isvirin.storeclient.presentation.internal.di.PerActivity;
 import com.example.isvirin.storeclient.presentation.internal.di.modules.ActivityModule;
-import com.example.isvirin.storeclient.presentation.internal.di.modules.UserModule;
-import com.example.isvirin.storeclient.presentation.view.fragment.UserDetailsFragment;
-import com.example.isvirin.storeclient.presentation.view.fragment.UserListFragment;
+import com.example.isvirin.storeclient.presentation.internal.di.modules.BrandModule;
+import com.example.isvirin.storeclient.presentation.view.fragment.BrandListFragment;
 
 import dagger.Component;
 
 /**
- * A scope {@link com.example.isvirin.storeclient.presentation.internal.di.PerActivity} component.
+ * A scope {@link PerActivity} component.
  * Injects user specific Fragments.
  */
 @PerActivity
-@Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class, UserModule.class})
-public interface UserComponent extends ActivityComponent {
-  void inject(UserListFragment userListFragment);
-  void inject(UserDetailsFragment userDetailsFragment);
+@Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class, BrandModule.class})
+public interface BrandComponent extends ActivityComponent {
+  void inject(BrandListFragment brandListFragment);
 }

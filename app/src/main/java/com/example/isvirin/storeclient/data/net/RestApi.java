@@ -16,9 +16,9 @@
 package com.example.isvirin.storeclient.data.net;
 
 
+import com.example.isvirin.storeclient.data.entity.BrandEntity;
 import com.example.isvirin.storeclient.data.entity.CategoryEntity;
 import com.example.isvirin.storeclient.data.entity.ProductEntity;
-import com.example.isvirin.storeclient.data.entity.UserEntity;
 
 import java.util.List;
 
@@ -28,39 +28,33 @@ import rx.Observable;
  * RestApi for retrieving data from the network.
  */
 public interface RestApi {
-//  String API_BASE_URL = "http://www.android10.org/myapi/";
   String API_BASE_URL = "http://www.sivapi.esy.es/api/?apitestmine.";
 //  String API_BASE_URL = "http://www.softomate.net/ext/json/";
 
-  /** Api url for getting all users */
-  String API_URL_GET_USER_LIST = API_BASE_URL + "users.json";
-  /** Api url for getting a user profile: Remember to concatenate id + 'json' */
-  String API_URL_GET_USER_DETAILS = API_BASE_URL + "user_";
   /** Api url for getting all products */
 //  String API_URL_GET_PRODUCTS = API_BASE_URL + "products.json";
   String API_URL_GET_PRODUCTS = API_BASE_URL + "getProducts={}";
   /** Api url for getting all categories */
 //  String API_URL_GET_CATEGORIES = API_BASE_URL + "categories.json";
   String API_URL_GET_CATEGORIES = API_BASE_URL + "getCategories={}";
-  /** Api url for getting a product by id */
-  String API_URL_GET_PRODUCT = API_BASE_URL + "getProductById={\"productId\":";
+  /** Api url for getting all brands */
+  String API_URL_GET_BRANDS = API_BASE_URL + "getBrands={}";
 
   /**
-   * Retrieves an {@link rx.Observable} which will emit a List of {@link UserEntity}.
+   * Retrieves an {@link rx.Observable} which will emit a List of {@link ProductEntity}.
    */
-  Observable<List<UserEntity>> userEntityList();
-
-  /**
-   * Retrieves an {@link rx.Observable} which will emit a {@link UserEntity}.
-   *
-   * @param userId The user id used to get user data.
-   */
-  Observable<UserEntity> userEntityById(final int userId);
-
 
   Observable<List<ProductEntity>> productEntityList();
 
   Observable<List<CategoryEntity>> categoryEntityList();
 
-  Observable<ProductEntity> productEntityById(final int id);
+  Observable<List<BrandEntity>> brandEntityList();
+
+  /**
+   * Retrieves an {@link rx.Observable} which will emit a {@link ProductEntity}.
+   *
+   * @param id The user id used to get user data.
+   */
+
+//  Observable<ProductEntity> productEntityById(final int id);
 }

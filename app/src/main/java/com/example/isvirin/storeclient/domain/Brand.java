@@ -13,26 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.isvirin.storeclient.data.exception;
+package com.example.isvirin.storeclient.domain;
 
-/**
- * Exception throw by the application when a User search can't return a valid result.
- */
-public class UserNotFoundException extends Exception {
+public class Brand {
+  private int id;
+  private int categoryId;
+  private String name;
 
-  public UserNotFoundException() {
-    super();
+  public Brand() {
   }
 
-  public UserNotFoundException(final String message) {
-    super(message);
+  public int getId() {
+    return id;
   }
 
-  public UserNotFoundException(final String message, final Throwable cause) {
-    super(message, cause);
+  public void setId(int id) {
+    this.id = id;
   }
 
-  public UserNotFoundException(final Throwable cause) {
-    super(cause);
+  public int getCategoryId() {
+    return categoryId;
+  }
+
+  public void setCategoryId(int categoryId) {
+    this.categoryId = categoryId;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 }

@@ -28,8 +28,7 @@ public class MainActivity extends BaseActivity {
    * Goes to the user list screen.
    */
   @OnClick(R.id.btn_LoadData)
-  void navigateToUserList() {
+  void navigateToCategoryList() {
     this.navigator.navigateToCategoryList(this);
-//    this.navigator.navigateToUserList(this);
   }
 }

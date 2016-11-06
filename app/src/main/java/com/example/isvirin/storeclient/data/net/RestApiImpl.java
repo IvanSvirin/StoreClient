@@ -19,9 +19,9 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.example.isvirin.storeclient.data.entity.BrandEntity;
 import com.example.isvirin.storeclient.data.entity.CategoryEntity;
 import com.example.isvirin.storeclient.data.entity.ProductEntity;
-import com.example.isvirin.storeclient.data.entity.UserEntity;
 import com.example.isvirin.storeclient.data.entity.mapper.EntityJsonMapper;
 import com.example.isvirin.storeclient.data.exception.NetworkConnectionException;
 import com.fernandocejas.frodo.annotation.RxLogObservable;
@@ -51,51 +51,6 @@ public class RestApiImpl implements RestApi {
         }
         this.context = context.getApplicationContext();
         this.entityJsonMapper = userEntityJsonMapper;
-    }
-
-    @RxLogObservable
-    @Override
-    public Observable<List<UserEntity>> userEntityList() {
-        return Observable.create(subscriber -> {
-            if (isThereInternetConnection()) {
-                try {
-                    String responseUserEntities = getUserEntitiesFromApi();
-                    if (responseUserEntities != null) {
-                        subscriber.onNext(entityJsonMapper.transformUserEntityCollection(
-                                responseUserEntities));
-                        subscriber.onCompleted();
-                    } else {
-                        subscriber.onError(new NetworkConnectionException());
-                    }
-                } catch (Exception e) {
-                    subscriber.onError(new NetworkConnectionException(e.getCause()));
-                }
-            } else {
-                subscriber.onError(new NetworkConnectionException());
-            }
-        });
-    }
-
-    @RxLogObservable
-    @Override
-    public Observable<UserEntity> userEntityById(final int userId) {
-        return Observable.create(subscriber -> {
-            if (isThereInternetConnection()) {
-                try {
-                    String responseUserDetails = getUserDetailsFromApi(userId);
-                    if (responseUserDetails != null) {
-                        subscriber.onNext(entityJsonMapper.transformUserEntity(responseUserDetails));
-                        subscriber.onCompleted();
-                    } else {
-                        subscriber.onError(new NetworkConnectionException());
-                    }
-                } catch (Exception e) {
-                    subscriber.onError(new NetworkConnectionException(e.getCause()));
-                }
-            } else {
-                subscriber.onError(new NetworkConnectionException());
-            }
-        });
     }
 
     @RxLogObservable
@@ -144,13 +99,13 @@ public class RestApiImpl implements RestApi {
 
     @RxLogObservable
     @Override
-    public Observable<ProductEntity> productEntityById(int id) {
+    public Observable<List<BrandEntity>> brandEntityList() {
         return Observable.create(subscriber -> {
             if (isThereInternetConnection()) {
                 try {
-                    String responseProductById = getProductByIdFromApi(id);
-                    if (responseProductById != null) {
-                        subscriber.onNext(entityJsonMapper.transformProductEntity(responseProductById));
+                    String responseBrandEntities = getBrandEntitiesFromApi();
+                    if (responseBrandEntities != null) {
+                        subscriber.onNext(entityJsonMapper.transformBrandEntityCollection(responseBrandEntities));
                         subscriber.onCompleted();
                     } else {
                         subscriber.onError(new NetworkConnectionException());
@@ -164,9 +119,27 @@ public class RestApiImpl implements RestApi {
         });
     }
 
-    private String getUserEntitiesFromApi() throws MalformedURLException {
-        return ApiConnection.createGET(API_URL_GET_USER_LIST).requestSyncCall();
-    }
+//    @RxLogObservable
+//    @Override
+//    public Observable<ProductEntity> productEntityById(int id) {
+//        return Observable.create(subscriber -> {
+//            if (isThereInternetConnection()) {
+//                try {
+//                    String responseProductById = getProductByIdFromApi(id);
+//                    if (responseProductById != null) {
+//                        subscriber.onNext(entityJsonMapper.transformProductEntity(responseProductById));
+//                        subscriber.onCompleted();
+//                    } else {
+//                        subscriber.onError(new NetworkConnectionException());
+//                    }
+//                } catch (Exception e) {
+//                    subscriber.onError(new NetworkConnectionException(e.getCause()));
+//                }
+//            } else {
+//                subscriber.onError(new NetworkConnectionException());
+//            }
+//        });
+//    }
 
     private String getProductEntitiesFromApi() throws MalformedURLException {
         return ApiConnection.createGET(API_URL_GET_PRODUCTS).requestSyncCall();
@@ -176,14 +149,8 @@ public class RestApiImpl implements RestApi {
         return ApiConnection.createGET(API_URL_GET_CATEGORIES).requestSyncCall();
     }
 
-    private String getUserDetailsFromApi(int userId) throws MalformedURLException {
-        String apiUrl = API_URL_GET_USER_DETAILS + userId + ".json";
-        return ApiConnection.createGET(apiUrl).requestSyncCall();
-    }
-
-    private String getProductByIdFromApi(int id) throws MalformedURLException {
-        String apiUrl = API_URL_GET_PRODUCT + id + "}";
-        return ApiConnection.createGET(apiUrl).requestSyncCall();
+    private String getBrandEntitiesFromApi() throws MalformedURLException {
+        return ApiConnection.createGET(API_URL_GET_BRANDS).requestSyncCall();
     }
 
     /**

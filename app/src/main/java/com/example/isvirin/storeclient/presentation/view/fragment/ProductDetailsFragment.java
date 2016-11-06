@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,7 +19,6 @@ import com.example.isvirin.storeclient.presentation.internal.di.components.Produ
 import com.example.isvirin.storeclient.presentation.model.ProductModel;
 import com.example.isvirin.storeclient.presentation.presenter.ProductDetailsPresenter;
 import com.example.isvirin.storeclient.presentation.view.ProductDetailsView;
-import com.example.isvirin.storeclient.presentation.view.component.AutoLoadImageView;
 
 import javax.inject.Inject;
 
@@ -35,7 +35,7 @@ public class ProductDetailsFragment extends BaseFragment implements ProductDetai
   ProductDetailsPresenter productDetailsPresenter;
 
   @Bind(R.id.iv_cover)
-  AutoLoadImageView iv_cover;
+  ImageView iv_cover;
   @Bind(R.id.tv_name)
   TextView tv_name;
   @Bind(R.id.tv_brand)

@@ -19,7 +19,7 @@ import android.content.Context;
 
 import com.example.isvirin.storeclient.R;
 import com.example.isvirin.storeclient.data.exception.NetworkConnectionException;
-import com.example.isvirin.storeclient.data.exception.UserNotFoundException;
+import com.example.isvirin.storeclient.data.exception.ProductNotFoundException;
 
 
 /**
@@ -43,8 +43,8 @@ public class ErrorMessageFactory {
 
     if (exception instanceof NetworkConnectionException) {
       message = context.getString(R.string.exception_message_no_connection);
-    } else if (exception instanceof UserNotFoundException) {
-      message = context.getString(R.string.exception_message_user_not_found);
+    } else if (exception instanceof ProductNotFoundException) {
+      message = context.getString(R.string.exception_message_product_not_found);
     }
 
     return message;

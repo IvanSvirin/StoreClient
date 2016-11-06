@@ -33,7 +33,6 @@ import dagger.Provides;
  */
 @Module
 public class ProductModule {
-
     private int id = -1;
 
     public ProductModule() {

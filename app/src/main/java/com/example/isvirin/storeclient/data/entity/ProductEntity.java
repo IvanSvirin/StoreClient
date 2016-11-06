@@ -15,44 +15,94 @@
  */
 package com.example.isvirin.storeclient.data.entity;
 
+import com.example.isvirin.storeclient.data.entity.daoconverter.ProductType;
+import com.example.isvirin.storeclient.data.entity.daoconverter.ProductTypeConverter;
 import com.google.gson.annotations.SerializedName;
+
+import org.greenrobot.greendao.annotation.Convert;
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Index;
+import org.greenrobot.greendao.annotation.NotNull;
 
 /**
  * Product Entity used in the data layer.
  */
+@Entity(indexes = {
+        @Index(value = "productId, categoryId, brand ASC", unique = true)
+})
 public class ProductEntity {
+  @Id
+  private Long id;
 
+  @NotNull
   @SerializedName("id")
-  private int id;
+  private int productId;
 
+  @NotNull
   @SerializedName("name")
   private String name;
 
+  @NotNull
   @SerializedName("category_id")
   private String categoryId;
 
+  @NotNull
   @SerializedName("code")
   private String code;
 
+  @NotNull
   @SerializedName("price")
   private String price;
 
+  @NotNull
   @SerializedName("brand")
   private String brand;
 
+  @NotNull
   @SerializedName("description")
   private String description;
 
+  @Convert(converter = ProductTypeConverter.class, columnType = String.class)
+  private ProductType productType;
+
+  @Generated(hash = 27353230)
   public ProductEntity() {
-    //empty
   }
 
-  public int getId() {
+  public ProductEntity(Long id) {
+    this.id = id;
+  }
+
+  @Generated(hash = 945859737)
+  public ProductEntity(Long id, int productId, @NotNull String name, @NotNull String categoryId, @NotNull String code,
+          @NotNull String price, @NotNull String brand, @NotNull String description, ProductType productType) {
+      this.id = id;
+      this.productId = productId;
+      this.name = name;
+      this.categoryId = categoryId;
+      this.code = code;
+      this.price = price;
+      this.brand = brand;
+      this.description = description;
+      this.productType = productType;
+  }
+
+  public Long getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Long id) {
     this.id = id;
+  }
+
+  public int getProductId() {
+    return productId;
+  }
+
+  public void setProductId(int productId) {
+    this.productId = productId;
   }
 
   public String getName() {
@@ -61,14 +111,6 @@ public class ProductEntity {
 
   public void setName(String name) {
     this.name = name;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
   }
 
   public String getCategoryId() {
@@ -103,20 +145,19 @@ public class ProductEntity {
     this.brand = brand;
   }
 
-  @Override
-  public String toString() {
-    StringBuilder stringBuilder = new StringBuilder();
+  public String getDescription() {
+    return description;
+  }
 
-    stringBuilder.append("***** User Entity Details *****\n");
-    stringBuilder.append("id=" + this.getId() + "\n");
-    stringBuilder.append("name=" + this.getName() + "\n");
-    stringBuilder.append("category_id=" + this.getCategoryId() + "\n");
-    stringBuilder.append("code=" + this.getCode() + "\n");
-    stringBuilder.append("price=" + this.getPrice() + "\n");
-    stringBuilder.append("brand=" + this.getBrand() + "\n");
-    stringBuilder.append("description=" + this.getDescription() + "\n");
-    stringBuilder.append("*******************************");
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    return stringBuilder.toString();
+  public ProductType getProductType() {
+    return productType;
+  }
+
+  public void setProductType(ProductType productType) {
+    this.productType = productType;
   }
 }

@@ -15,8 +15,8 @@
  */
 package com.example.isvirin.storeclient.data.entity;
 
-import com.example.isvirin.storeclient.data.entity.daoconverter.CategoryType;
-import com.example.isvirin.storeclient.data.entity.daoconverter.CategoryTypeConverter;
+import com.example.isvirin.storeclient.data.entity.daoconverter.BrandType;
+import com.example.isvirin.storeclient.data.entity.daoconverter.BrandTypeConverter;
 import com.google.gson.annotations.SerializedName;
 
 import org.greenrobot.greendao.annotation.Convert;
@@ -26,41 +26,43 @@ import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Index;
 import org.greenrobot.greendao.annotation.NotNull;
 
-/**
- * Category Entity used in the data layer.
- */
 @Entity(indexes = {
         @Index(value = "name ASC", unique = true)
 })
-public class CategoryEntity {
+public class BrandEntity {
     @Id
     private Long id;
 
     @NotNull
     @SerializedName("id")
+    private int brandId;
+
+    @NotNull
+    @SerializedName("category_id")
     private int categoryId;
 
     @NotNull
     @SerializedName("name")
     private String name;
 
-    @Convert(converter = CategoryTypeConverter.class, columnType = String.class)
-    private CategoryType categoryType;
+    @Convert(converter = BrandTypeConverter.class, columnType = String.class)
+    private BrandType brandType;
 
-    @Generated(hash = 725894750)
-    public CategoryEntity() {
+    @Generated(hash = 2056783902)
+    public BrandEntity() {
     }
 
-    public CategoryEntity(Long id) {
+    public BrandEntity(Long id) {
         this.id = id;
     }
 
-    @Generated(hash = 784349189)
-    public CategoryEntity(Long id, int categoryId, @NotNull String name, CategoryType categoryType) {
+    @Generated(hash = 506945594)
+    public BrandEntity(Long id, int brandId, int categoryId, @NotNull String name, BrandType brandType) {
         this.id = id;
+        this.brandId = brandId;
         this.categoryId = categoryId;
         this.name = name;
-        this.categoryType = categoryType;
+        this.brandType = brandType;
     }
 
     public Long getId() {
@@ -69,6 +71,14 @@ public class CategoryEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public int getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(int brandId) {
+        this.brandId = brandId;
     }
 
     public int getCategoryId() {
@@ -87,11 +97,11 @@ public class CategoryEntity {
         this.name = name;
     }
 
-    public CategoryType getCategoryType() {
-        return categoryType;
+    public BrandType getBrandType() {
+        return brandType;
     }
 
-    public void setCategoryType(CategoryType categoryType) {
-        this.categoryType = categoryType;
+    public void setBrandType(BrandType brandType) {
+        this.brandType = brandType;
     }
 }

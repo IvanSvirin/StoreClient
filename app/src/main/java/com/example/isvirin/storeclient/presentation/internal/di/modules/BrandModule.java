@@ -17,10 +17,10 @@ package com.example.isvirin.storeclient.presentation.internal.di.modules;
 
 import com.example.isvirin.storeclient.domain.executor.PostExecutionThread;
 import com.example.isvirin.storeclient.domain.executor.ThreadExecutor;
-import com.example.isvirin.storeclient.domain.interactor.GetUserDetails;
-import com.example.isvirin.storeclient.domain.interactor.GetUserList;
+import com.example.isvirin.storeclient.domain.interactor.GetBrandList;
+import com.example.isvirin.storeclient.domain.interactor.GetBrandsByCategory;
 import com.example.isvirin.storeclient.domain.interactor.UseCase;
-import com.example.isvirin.storeclient.domain.repository.UserRepository;
+import com.example.isvirin.storeclient.domain.repository.BrandRepository;
 import com.example.isvirin.storeclient.presentation.internal.di.PerActivity;
 
 import javax.inject.Named;
@@ -32,29 +32,28 @@ import dagger.Provides;
  * Dagger module that provides user related collaborators.
  */
 @Module
-public class UserModule {
+public class BrandModule {
+    private int id = -1;
 
-    private int userId = -1;
-
-    public UserModule() {
+    public BrandModule() {
     }
 
-    public UserModule(int userId) {
-        this.userId = userId;
-    }
-
-    @Provides
-    @PerActivity
-    @Named("userList")
-    UseCase provideGetUserListUseCase(GetUserList getUserList) {
-        return getUserList;
+    public BrandModule(int id) {
+        this.id = id;
     }
 
     @Provides
     @PerActivity
-    @Named("userDetails")
-    UseCase provideGetUserDetailsUseCase(UserRepository userRepository, ThreadExecutor threadExecutor,
-                                         PostExecutionThread postExecutionThread) {
-        return new GetUserDetails(userId, userRepository, threadExecutor, postExecutionThread);
+    @Named("brandList")
+    UseCase provideGetBrandListUseCase(GetBrandList getBrandList) {
+        return getBrandList;
+    }
+
+    @Provides
+    @PerActivity
+    @Named("brandsByCategory")
+    UseCase provideGetBrandsByCategoryUseCase(BrandRepository brandRepository, ThreadExecutor threadExecutor,
+                                              PostExecutionThread postExecutionThread) {
+        return new GetBrandsByCategory(id, brandRepository, threadExecutor, postExecutionThread);
     }
 }

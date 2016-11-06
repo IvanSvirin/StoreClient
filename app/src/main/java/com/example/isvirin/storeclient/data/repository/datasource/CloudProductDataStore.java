@@ -33,12 +33,6 @@ class CloudProductDataStore implements ProductDataStore {
   private final RestApi restApi;
   private final ProductCache productCache;
 
-  private final Action1<ProductEntity> saveToCacheAction = productEntity -> {
-    if (productEntity != null) {
-      CloudProductDataStore.this.productCache.put(productEntity);
-    }
-  };
-
   private final Action1<List<ProductEntity>> saveListToCacheAction = productEntities -> {
     if (productEntities != null) {
       CloudProductDataStore.this.productCache.putProducts(productEntities);
@@ -63,6 +57,7 @@ class CloudProductDataStore implements ProductDataStore {
 
   @Override
   public Observable<ProductEntity> productEntityDetails(int id) {
-    return this.restApi.productEntityById(id).doOnNext(saveToCacheAction);
+    return null;
+//    return this.restApi.productEntityById(id).doOnNext(saveToCacheAction);
   }
 }

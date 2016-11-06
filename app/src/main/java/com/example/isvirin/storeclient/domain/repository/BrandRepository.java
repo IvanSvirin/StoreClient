@@ -16,15 +16,15 @@
 package com.example.isvirin.storeclient.domain.repository;
 
 
-import com.example.isvirin.storeclient.domain.Product;
+import com.example.isvirin.storeclient.domain.Brand;
 
 import java.util.List;
 
 import rx.Observable;
 
-public interface ProductRepository {
+public interface BrandRepository {
 
-  Observable<List<Product>> products();
+  Observable<List<Brand>> brands();
 
-  Observable<Product> product(final int id);
+  Observable<List<Brand>> brandsByCategory(final int id);
 }

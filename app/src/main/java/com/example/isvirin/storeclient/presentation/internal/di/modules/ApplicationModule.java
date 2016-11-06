@@ -17,21 +17,21 @@ package com.example.isvirin.storeclient.presentation.internal.di.modules;
 
 import android.content.Context;
 
+import com.example.isvirin.storeclient.data.cache.BrandCache;
+import com.example.isvirin.storeclient.data.cache.BrandCacheImpl;
 import com.example.isvirin.storeclient.data.cache.CategoryCache;
 import com.example.isvirin.storeclient.data.cache.CategoryCacheImpl;
 import com.example.isvirin.storeclient.data.cache.ProductCache;
 import com.example.isvirin.storeclient.data.cache.ProductCacheImpl;
-import com.example.isvirin.storeclient.data.cache.UserCache;
-import com.example.isvirin.storeclient.data.cache.UserCacheImpl;
 import com.example.isvirin.storeclient.data.executor.JobExecutor;
+import com.example.isvirin.storeclient.data.repository.BrandDataRepository;
 import com.example.isvirin.storeclient.data.repository.CategoryDataRepository;
 import com.example.isvirin.storeclient.data.repository.ProductDataRepository;
-import com.example.isvirin.storeclient.data.repository.UserDataRepository;
 import com.example.isvirin.storeclient.domain.executor.PostExecutionThread;
 import com.example.isvirin.storeclient.domain.executor.ThreadExecutor;
+import com.example.isvirin.storeclient.domain.repository.BrandRepository;
 import com.example.isvirin.storeclient.domain.repository.CategoryRepository;
 import com.example.isvirin.storeclient.domain.repository.ProductRepository;
-import com.example.isvirin.storeclient.domain.repository.UserRepository;
 import com.example.isvirin.storeclient.presentation.AndroidApplication;
 import com.example.isvirin.storeclient.presentation.UIThread;
 
@@ -71,12 +71,6 @@ public class ApplicationModule {
 
   @Provides
   @Singleton
-  UserCache provideUserCache(UserCacheImpl userCache) {
-    return userCache;
-  }
-
-  @Provides
-  @Singleton
   ProductCache provideProductCache(ProductCacheImpl productCache) {
     return productCache;
   }
@@ -89,8 +83,8 @@ public class ApplicationModule {
 
   @Provides
   @Singleton
-  UserRepository provideUserRepository(UserDataRepository userDataRepository) {
-    return userDataRepository;
+  BrandCache provideBrandCache(BrandCacheImpl brandCache) {
+    return brandCache;
   }
 
   @Provides
@@ -103,5 +97,11 @@ public class ApplicationModule {
   @Singleton
   CategoryRepository provideCategoryRepository(CategoryDataRepository categoryDataRepository) {
     return categoryDataRepository;
+  }
+
+  @Provides
+  @Singleton
+  BrandRepository provideBrandRepository(BrandDataRepository brandDataRepository) {
+    return brandDataRepository;
   }
 }

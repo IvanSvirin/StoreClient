@@ -18,11 +18,10 @@ package com.example.isvirin.storeclient.presentation.navigation;
 import android.content.Context;
 import android.content.Intent;
 
+import com.example.isvirin.storeclient.presentation.view.activity.BrandsByCategoryActivity;
 import com.example.isvirin.storeclient.presentation.view.activity.CategoryListActivity;
 import com.example.isvirin.storeclient.presentation.view.activity.ProductDetailsActivity;
 import com.example.isvirin.storeclient.presentation.view.activity.ProductListActivity;
-import com.example.isvirin.storeclient.presentation.view.activity.UserDetailsActivity;
-import com.example.isvirin.storeclient.presentation.view.activity.UserListActivity;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -38,35 +37,22 @@ public class Navigator {
   }
 
   /**
-   * Goes to the user list screen.
+   * Goes to the product details screen.
    *
    * @param context A Context needed to open the destiny activity.
    */
-  public void navigateToUserList(Context context) {
-    if (context != null) {
-      Intent intentToLaunch = UserListActivity.getCallingIntent(context);
-      context.startActivity(intentToLaunch);
-    }
-  }
-
-  /**
-   * Goes to the user details screen.
-   *
-   * @param context A Context needed to open the destiny activity.
-   */
-  public void navigateToUserDetails(Context context, int userId) {
-    if (context != null) {
-      Intent intentToLaunch = UserDetailsActivity.getCallingIntent(context, userId);
-      context.startActivity(intentToLaunch);
-    }
-  }
-
   public void navigateToProductDetails(Context context, int id) {
     if (context != null) {
       Intent intentToLaunch = ProductDetailsActivity.getCallingIntent(context, id);
       context.startActivity(intentToLaunch);
     }
   }
+
+  /**
+   * Goes to the product list screen.
+   *
+   * @param context A Context needed to open the destiny activity.
+   */
 
   public void navigateToProductList(Context context, int id) {
     Intent intentToLaunch = ProductListActivity.getCallingIntent(context);
@@ -75,6 +61,11 @@ public class Navigator {
 
   public void navigateToCategoryList(Context context) {
     Intent intentToLaunch = CategoryListActivity.getCallingIntent(context);
+    context.startActivity(intentToLaunch);
+  }
+
+  public void navigateToBrandList(Context context, int id) {
+    Intent intentToLaunch = BrandsByCategoryActivity.getCallingIntent(context, id);
     context.startActivity(intentToLaunch);
   }
 }

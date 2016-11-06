@@ -11,11 +11,11 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.example.isvirin.storeclient.R;
-import com.example.isvirin.storeclient.presentation.internal.di.components.CategoryComponent;
-import com.example.isvirin.storeclient.presentation.model.CategoryModel;
-import com.example.isvirin.storeclient.presentation.presenter.CategoryListPresenter;
-import com.example.isvirin.storeclient.presentation.view.CategoryListView;
-import com.example.isvirin.storeclient.presentation.view.adapter.CategoriesAdapter;
+import com.example.isvirin.storeclient.presentation.internal.di.components.BrandComponent;
+import com.example.isvirin.storeclient.presentation.model.BrandModel;
+import com.example.isvirin.storeclient.presentation.presenter.BrandsByCategoryPresenter;
+import com.example.isvirin.storeclient.presentation.view.BrandListView;
+import com.example.isvirin.storeclient.presentation.view.adapter.BrandsAdapter;
 import com.example.isvirin.storeclient.presentation.view.adapter.CommonLayoutManager;
 
 import java.util.Collection;
@@ -26,21 +26,19 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CategoryListFragment extends BaseFragment implements CategoryListView {
-    /**
-     * Interface for listening category list events.
-     */
-    public interface CategoryListListener {
-        void onCategoryClicked(final CategoryModel categoryModel);
+public class BrandListFragment extends BaseFragment implements BrandListView {
+
+    public interface BrandListListener {
+        void onBrandClicked(final BrandModel brandModel);
     }
 
     @Inject
-    CategoryListPresenter categoryListPresenter;
+    BrandsByCategoryPresenter brandsByCategoryPresenter;
     @Inject
-    CategoriesAdapter categoriesAdapter;
+    BrandsAdapter brandsAdapter;
 
-    @Bind(R.id.rv_categories)
-    RecyclerView rv_categories;
+    @Bind(R.id.rv_brands)
+    RecyclerView rv_brands;
     @Bind(R.id.rl_progress)
     RelativeLayout rl_progress;
     @Bind(R.id.rl_retry)
@@ -48,29 +46,29 @@ public class CategoryListFragment extends BaseFragment implements CategoryListVi
     @Bind(R.id.bt_retry)
     Button bt_retry;
 
-    private CategoryListFragment.CategoryListListener categoryListListener;
+    private BrandListFragment.BrandListListener brandListListener;
 
-    public CategoryListFragment() {
+    public BrandListFragment() {
         setRetainInstance(true);
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if (activity instanceof CategoryListFragment.CategoryListListener) {
-            this.categoryListListener = (CategoryListFragment.CategoryListListener) activity;
+        if (activity instanceof BrandListFragment.BrandListListener) {
+            this.brandListListener = (BrandListFragment.BrandListListener) activity;
         }
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.getComponent(CategoryComponent.class).inject(this);
+        this.getComponent(BrandComponent.class).inject(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View fragmentView = inflater.inflate(R.layout.fragment_category_list, container, false);
+        final View fragmentView = inflater.inflate(R.layout.fragment_brand_list, container, false);
         ButterKnife.bind(this, fragmentView);
         setupRecyclerView();
         return fragmentView;
@@ -79,41 +77,41 @@ public class CategoryListFragment extends BaseFragment implements CategoryListVi
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        this.categoryListPresenter.setView(this);
+        this.brandsByCategoryPresenter.setView(this);
         if (savedInstanceState == null) {
-            this.loadCategoryList();
+            this.loadBrandList();
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        this.categoryListPresenter.resume();
+        this.brandsByCategoryPresenter.resume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        this.categoryListPresenter.pause();
+        this.brandsByCategoryPresenter.pause();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        rv_categories.setAdapter(null);
+        rv_brands.setAdapter(null);
         ButterKnife.unbind(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        this.categoryListPresenter.destroy();
+        this.brandsByCategoryPresenter.destroy();
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        this.categoryListListener = null;
+        this.brandListListener = null;
     }
 
     @Override
@@ -138,15 +136,15 @@ public class CategoryListFragment extends BaseFragment implements CategoryListVi
         this.rl_retry.setVisibility(View.GONE);
     }
 
-    public void renderCategoryList(Collection<CategoryModel> categoryModelCollection) {
-        if (categoryModelCollection != null) {
-            this.categoriesAdapter.setCategoriesCollection(categoryModelCollection);
+    public void renderBrandList(Collection<BrandModel> brandModelCollection) {
+        if (brandModelCollection != null) {
+            this.brandsAdapter.setBrandsCollection(brandModelCollection);
         }
     }
 
-    public void viewCategory(CategoryModel categoryModel) {
-        if (this.categoryListListener != null) {
-            this.categoryListListener.onCategoryClicked(categoryModel);
+    public void viewBrand(BrandModel brandModel) {
+        if (this.brandListListener != null) {
+            this.brandListListener.onBrandClicked(brandModel);
         }
     }
 
@@ -161,28 +159,27 @@ public class CategoryListFragment extends BaseFragment implements CategoryListVi
     }
 
     private void setupRecyclerView() {
-        this.categoriesAdapter.setOnItemClickListener(onItemClickListener);
-        this.rv_categories.setLayoutManager(new CommonLayoutManager(context()));
-        this.rv_categories.setAdapter(categoriesAdapter);
+        this.brandsAdapter.setOnItemClickListener(onItemClickListener);
+        this.rv_brands.setLayoutManager(new CommonLayoutManager(context()));
+        this.rv_brands.setAdapter(brandsAdapter);
     }
 
-    /**
-     * Loads all categories.
-     */
-    private void loadCategoryList() {
-        this.categoryListPresenter.initialize();
+    private void loadBrandList() {
+        this.brandsByCategoryPresenter.initialize();
     }
 
-    @OnClick(R.id.bt_retry) void onButtonRetryClick() {
-        CategoryListFragment.this.loadCategoryList();
+    @OnClick(R.id.bt_retry)
+    void onButtonRetryClick() {
+        BrandListFragment.this.loadBrandList();
     }
 
-    private CategoriesAdapter.OnItemClickListener onItemClickListener =
-            new CategoriesAdapter.OnItemClickListener() {
-                public void onCategoryItemClicked(CategoryModel categoryModel) {
-                    if (CategoryListFragment.this.categoryListPresenter != null && categoryModel != null) {
-                        CategoryListFragment.this.categoryListPresenter.onCategoryClicked(categoryModel);
+    private BrandsAdapter.OnItemClickListener onItemClickListener =
+            new BrandsAdapter.OnItemClickListener() {
+                public void onBrandItemClicked(BrandModel brandModel) {
+                    if (BrandListFragment.this.brandsByCategoryPresenter != null && brandModel != null) {
+                        BrandListFragment.this.brandsByCategoryPresenter.onBrandClicked(brandModel);
                     }
                 }
             };
 }
+

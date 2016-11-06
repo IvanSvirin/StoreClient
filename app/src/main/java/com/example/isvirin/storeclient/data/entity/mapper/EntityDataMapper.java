@@ -15,12 +15,12 @@
  */
 package com.example.isvirin.storeclient.data.entity.mapper;
 
+import com.example.isvirin.storeclient.data.entity.BrandEntity;
 import com.example.isvirin.storeclient.data.entity.CategoryEntity;
 import com.example.isvirin.storeclient.data.entity.ProductEntity;
-import com.example.isvirin.storeclient.data.entity.UserEntity;
+import com.example.isvirin.storeclient.domain.Brand;
 import com.example.isvirin.storeclient.domain.Category;
 import com.example.isvirin.storeclient.domain.Product;
-import com.example.isvirin.storeclient.domain.User;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,7 +30,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
- * Mapper class used to transform {@link UserEntity} (in the data layer) to {@link User} in the
+ * Mapper class used to transform {@link ProductEntity} (in the data layer) to {@link Product} in the
  * domain layer.
  */
 @Singleton
@@ -38,29 +38,10 @@ public class EntityDataMapper {
   @Inject
   public EntityDataMapper() {}
 
-  /**
-   * Transform a {@link UserEntity} into an {@link User}.
-   *
-   * @param userEntity Object to be transformed.
-   * @return {@link User} if valid {@link UserEntity} otherwise null.
-   */
-  public User transform(UserEntity userEntity) {
-    User user = null;
-    if (userEntity != null) {
-      user = new User(userEntity.getUserId());
-      user.setCoverUrl(userEntity.getCoverUrl());
-      user.setFullName(userEntity.getFullname());
-      user.setDescription(userEntity.getDescription());
-      user.setFollowers(userEntity.getFollowers());
-      user.setEmail(userEntity.getEmail());
-    }
-    return user;
-  }
-
   public Product transform(ProductEntity productEntity) {
     Product product = null;
     if (productEntity != null) {
-      product = new Product(productEntity.getId());
+      product = new Product(productEntity.getProductId());
       product.setName(productEntity.getName());
       product.setCategoryId(productEntity.getCategoryId());
       product.setCode(productEntity.getCode());
@@ -81,22 +62,15 @@ public class EntityDataMapper {
     return category;
   }
 
-  /**
-   * Transform a List of {@link UserEntity} into a Collection of {@link User}.
-   *
-   * @param userEntityCollection Object Collection to be transformed.
-   * @return {@link User} if valid {@link UserEntity} otherwise null.
-   */
-  public List<User> transform(Collection<UserEntity> userEntityCollection) {
-    List<User> userList = new ArrayList<>(20);
-    User user;
-    for (UserEntity userEntity : userEntityCollection) {
-      user = transform(userEntity);
-      if (user != null) {
-        userList.add(user);
-      }
+  public Brand transform(BrandEntity brandEntity) {
+    Brand brand = null;
+    if (brandEntity != null) {
+      brand = new Brand();
+      brand.setId(brandEntity.getBrandId());
+      brand.setCategoryId(brandEntity.getCategoryId());
+      brand.setName(brandEntity.getName());
     }
-    return userList;
+    return brand;
   }
 
   public List<Product> transformProducts(Collection<ProductEntity> productEntityCollection) {
@@ -121,5 +95,17 @@ public class EntityDataMapper {
       }
     }
     return categories;
+  }
+
+  public List<Brand> transformBrands(Collection<BrandEntity> brandEntityCollection) {
+    List<Brand> brands = new ArrayList<>(20);
+    Brand brand;
+    for (BrandEntity brandEntity : brandEntityCollection) {
+      brand = transform(brandEntity);
+      if (brand != null) {
+        brands.add(brand);
+      }
+    }
+    return brands;
   }
 }

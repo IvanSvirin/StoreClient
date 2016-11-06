@@ -19,9 +19,9 @@ import android.content.Context;
 
 import com.example.isvirin.storeclient.domain.executor.PostExecutionThread;
 import com.example.isvirin.storeclient.domain.executor.ThreadExecutor;
+import com.example.isvirin.storeclient.domain.repository.BrandRepository;
 import com.example.isvirin.storeclient.domain.repository.CategoryRepository;
 import com.example.isvirin.storeclient.domain.repository.ProductRepository;
-import com.example.isvirin.storeclient.domain.repository.UserRepository;
 import com.example.isvirin.storeclient.presentation.internal.di.modules.ApplicationModule;
 import com.example.isvirin.storeclient.presentation.view.activity.BaseActivity;
 
@@ -41,7 +41,7 @@ public interface ApplicationComponent {
   Context context();
   ThreadExecutor threadExecutor();
   PostExecutionThread postExecutionThread();
-  UserRepository userRepository();
   ProductRepository productRepository();
   CategoryRepository categoryRepository();
+  BrandRepository brandRepository();
 }

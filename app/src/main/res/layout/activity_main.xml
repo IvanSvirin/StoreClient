@@ -10,25 +10,11 @@
     tools:context=".presentation.view.activity.MainActivity"
     >
 
-  <TextView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="@string/url"
-      android:gravity="center"
-      />
-
-  <ImageView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:src="@drawable/logo"
-      android:contentDescription="@string/string_content_description"
-      />
-
   <Button
       android:id="@+id/btn_LoadData"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="@string/btn_text_load_data"
+      android:text="@string/btn_welcome"
       />
 
 </LinearLayout>

@@ -13,18 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.isvirin.storeclient.domain.repository;
+package com.example.isvirin.storeclient.data.exception;
 
+public class BrandNotFoundException extends Exception {
 
-import com.example.isvirin.storeclient.domain.Product;
+  public BrandNotFoundException() {
+    super();
+  }
 
-import java.util.List;
+  public BrandNotFoundException(final String message) {
+    super(message);
+  }
 
-import rx.Observable;
+  public BrandNotFoundException(final String message, final Throwable cause) {
+    super(message, cause);
+  }
 
-public interface ProductRepository {
-
-  Observable<List<Product>> products();
-
-  Observable<Product> product(final int id);
+  public BrandNotFoundException(final Throwable cause) {
+    super(cause);
+  }
 }

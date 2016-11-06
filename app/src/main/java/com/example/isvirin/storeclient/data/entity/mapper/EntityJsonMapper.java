@@ -15,19 +15,18 @@
  */
 package com.example.isvirin.storeclient.data.entity.mapper;
 
+import com.example.isvirin.storeclient.data.entity.BrandEntity;
 import com.example.isvirin.storeclient.data.entity.CategoryEntity;
 import com.example.isvirin.storeclient.data.entity.ProductEntity;
-import com.example.isvirin.storeclient.data.entity.UserEntity;
+import com.example.isvirin.storeclient.data.entity.daoconverter.BrandType;
 import com.example.isvirin.storeclient.data.entity.daoconverter.CategoryType;
+import com.example.isvirin.storeclient.data.entity.daoconverter.ProductType;
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,74 +44,43 @@ public class EntityJsonMapper {
         this.gson = new Gson();
     }
 
-    /**
-     * Transform from valid json string to {@link UserEntity}.
-     *
-     * @param userJsonResponse A json representing a user profile.
-     * @return {@link UserEntity}.
-     * @throws com.google.gson.JsonSyntaxException if the json string is not a valid json structure.
-     */
-    public UserEntity transformUserEntity(String userJsonResponse) throws JsonSyntaxException {
+//    public ProductEntity transformProductEntity(String userJsonResponse) throws JsonSyntaxException {
+//        try {
+//            Type productEntityType = new TypeToken<ProductEntity>() {
+//            }.getType();
+//            ProductEntity productEntity = this.gson.fromJson(userJsonResponse, productEntityType);
+//            return productEntity;
+//        } catch (JsonSyntaxException jsonException) {
+//            throw jsonException;
+//        }
+//    }
+
+    public List<ProductEntity> transformProductEntityCollection(String productListJsonResponse) throws JSONException {
+        List<ProductEntity> productEntityCollection = new ArrayList<>();
+        ProductEntity productEntity;
         try {
-            Type userEntityType = new TypeToken<UserEntity>() {
-            }.getType();
-            UserEntity userEntity = this.gson.fromJson(userJsonResponse, userEntityType);
-            return userEntity;
-        } catch (JsonSyntaxException jsonException) {
-            throw jsonException;
-        }
-    }
-
-    public ProductEntity transformProductEntity(String userJsonResponse) throws JsonSyntaxException {
-        try {
-            Type productEntityType = new TypeToken<ProductEntity>() {
-            }.getType();
-            ProductEntity productEntity = this.gson.fromJson(userJsonResponse, productEntityType);
-            return productEntity;
-        } catch (JsonSyntaxException jsonException) {
-            throw jsonException;
-        }
-    }
-
-    /**
-     * Transform from valid json string to List of {@link UserEntity}.
-     *
-     * @param userListJsonResponse A json representing a collection of users.
-     * @return List of {@link UserEntity}.
-     * @throws com.google.gson.JsonSyntaxException if the json string is not a valid json structure.
-     */
-    public List<UserEntity> transformUserEntityCollection(String userListJsonResponse)
-            throws JsonSyntaxException {
-
-        List<UserEntity> userEntityCollection;
-        try {
-            Type listOfUserEntityType = new TypeToken<List<UserEntity>>() {
-            }.getType();
-            userEntityCollection = this.gson.fromJson(userListJsonResponse, listOfUserEntityType);
-
-            return userEntityCollection;
-        } catch (JsonSyntaxException jsonException) {
-            throw jsonException;
-        }
-    }
-
-    public List<ProductEntity> transformProductEntityCollection(String productListJsonResponse)
-            throws JsonSyntaxException {
-
-        List<ProductEntity> productEntityCollection;
-        try {
-            Type listOfProductEntityType = new TypeToken<List<ProductEntity>>() {
-            }.getType();
-            productEntityCollection = this.gson.fromJson(productListJsonResponse, listOfProductEntityType);
+            JSONArray jsonArray = new JSONArray(productListJsonResponse);
+            JSONObject jsonObject;
+            for (int i = 0; i < jsonArray.length(); i++) {
+                jsonObject = jsonArray.getJSONObject(i);
+                productEntity = new ProductEntity();
+                productEntity.setProductId(jsonObject.getInt("id"));
+                productEntity.setName(jsonObject.getString("name"));
+                productEntity.setCategoryId(jsonObject.getString("category_id"));
+                productEntity.setCode(jsonObject.getString("code"));
+                productEntity.setPrice(jsonObject.getString("price"));
+                productEntity.setBrand(jsonObject.getString("brand"));
+                productEntity.setDescription(jsonObject.getString("description"));
+                productEntity.setProductType(ProductType.TEXT);
+                productEntityCollection.add(productEntity);
+            }
             return productEntityCollection;
-        } catch (JsonSyntaxException jsonException) {
+        } catch (JSONException jsonException) {
             throw jsonException;
         }
     }
 
-    public List<CategoryEntity> transformCategoryEntityCollection(String categoryListJsonResponse)
-            throws JSONException {
-
+    public List<CategoryEntity> transformCategoryEntityCollection(String categoryListJsonResponse) throws JSONException {
         List<CategoryEntity> categoryEntityCollection = new ArrayList<>();
         CategoryEntity categoryEntity;
         try {
@@ -128,14 +96,28 @@ public class EntityJsonMapper {
             }
             return categoryEntityCollection;
         } catch (JSONException jsonException) {
-            throw  jsonException;
+            throw jsonException;
         }
-//    try {
-//      Type listOfCategoryEntityType = new TypeToken<List<CategoryEntity>>() {}.getType();
-//      categoryEntityCollection = this.gson.fromJson(categoryListJsonResponse, listOfCategoryEntityType);
-//      return categoryEntityCollection;
-//    } catch (JsonSyntaxException jsonException) {
-//      throw jsonException;
-//    }
+    }
+
+    public List<BrandEntity> transformBrandEntityCollection(String brandListJsonResponse) throws JSONException {
+        List<BrandEntity> brandEntityCollection = new ArrayList<>();
+        BrandEntity brandEntity;
+        try {
+            JSONArray jsonArray = new JSONArray(brandListJsonResponse);
+            JSONObject jsonObject;
+            for (int i = 0; i < jsonArray.length(); i++) {
+                jsonObject = jsonArray.getJSONObject(i);
+                brandEntity = new BrandEntity();
+                brandEntity.setBrandId(jsonObject.getInt("id"));
+                brandEntity.setCategoryId(jsonObject.getInt("category_id"));
+                brandEntity.setName(jsonObject.getString("name"));
+                brandEntity.setBrandType(BrandType.TEXT);
+                brandEntityCollection.add(brandEntity);
+            }
+            return brandEntityCollection;
+        } catch (JSONException jsonException) {
+            throw jsonException;
+        }
     }
 }
