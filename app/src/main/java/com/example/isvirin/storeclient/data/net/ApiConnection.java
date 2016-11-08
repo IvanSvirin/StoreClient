@@ -56,8 +56,6 @@ public class ApiConnection implements Callable<String> {
     @Nullable
     public String requestSyncCall() {
         connectToApi();
-        //to fix back end response imperfection
-        response = response.substring(3);
         return response;
     }
 
