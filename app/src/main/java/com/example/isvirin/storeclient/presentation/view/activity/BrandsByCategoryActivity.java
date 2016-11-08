@@ -38,8 +38,8 @@ public class BrandsByCategoryActivity extends BaseActivity implements HasCompone
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.activity_layout);
 
-        this.initializeInjector();
         this.initializeActivity(savedInstanceState);
+        this.initializeInjector();
     }
 
     @Override

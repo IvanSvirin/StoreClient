@@ -20,11 +20,14 @@ import android.support.annotation.NonNull;
 
 import com.example.isvirin.storeclient.data.cache.BrandCache;
 import com.example.isvirin.storeclient.data.entity.mapper.EntityJsonMapper;
+import com.example.isvirin.storeclient.data.event.BrandsLoadedEvent;
 import com.example.isvirin.storeclient.data.net.RestApi;
 import com.example.isvirin.storeclient.data.net.RestApiImpl;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import de.greenrobot.event.EventBus;
 
 @Singleton
 public class BrandDataStoreFactory {

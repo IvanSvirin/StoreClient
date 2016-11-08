@@ -47,5 +47,6 @@ class CloudBrandDataStore implements BrandDataStore {
     @Override
     public Observable<List<BrandEntity>> brandEntitiesByCategory(int id) {
         return null;
+//        return this.restApi.brandEntityList().doOnNext(saveListToCacheAction);
     }
 }

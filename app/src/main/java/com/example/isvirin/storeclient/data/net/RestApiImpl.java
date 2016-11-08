@@ -23,6 +23,7 @@ import com.example.isvirin.storeclient.data.entity.BrandEntity;
 import com.example.isvirin.storeclient.data.entity.CategoryEntity;
 import com.example.isvirin.storeclient.data.entity.ProductEntity;
 import com.example.isvirin.storeclient.data.entity.mapper.EntityJsonMapper;
+import com.example.isvirin.storeclient.data.event.BrandsLoadedEvent;
 import com.example.isvirin.storeclient.data.exception.NetworkConnectionException;
 import com.fernandocejas.frodo.annotation.RxLogObservable;
 

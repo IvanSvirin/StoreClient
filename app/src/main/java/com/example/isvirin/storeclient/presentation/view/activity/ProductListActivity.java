@@ -20,8 +20,7 @@ import com.example.isvirin.storeclient.presentation.view.fragment.ProductListFra
 /**
  * Activity that shows a list of Products.
  */
-public class ProductListActivity extends BaseActivity implements HasComponent<ProductComponent>,
-        ProductListFragment.ProductListListener {
+public class ProductListActivity extends BaseActivity implements HasComponent<ProductComponent>, ProductListFragment.ProductListListener {
 
     public static Intent getCallingIntent(Context context) {
         return new Intent(context, ProductListActivity.class);

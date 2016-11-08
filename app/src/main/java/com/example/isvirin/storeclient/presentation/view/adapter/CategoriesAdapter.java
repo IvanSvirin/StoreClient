@@ -5,6 +5,7 @@
 package com.example.isvirin.storeclient.presentation.view.adapter;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.isvirin.storeclient.R;
+import com.example.isvirin.storeclient.databinding.RowBrandBinding;
+import com.example.isvirin.storeclient.databinding.RowCategoryBinding;
 import com.example.isvirin.storeclient.presentation.model.CategoryModel;
 
 import java.util.Collection;
@@ -50,15 +53,16 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
   @Override
   public CategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    final View view = this.layoutInflater.inflate(R.layout.row_category, parent, false);
-    return new CategoryViewHolder(view);
+    LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+    RowCategoryBinding binding = RowCategoryBinding.inflate(inflater, parent, false);
+    return new CategoriesAdapter.CategoryViewHolder(binding.getRoot());
   }
 
   @Override
   public void onBindViewHolder(CategoryViewHolder holder, final int position) {
     final CategoryModel categoryModel = this.categoriesCollection.get(position);
-    holder.textViewTitle.setText(categoryModel.getName());
-    holder.itemView.setOnClickListener(new View.OnClickListener() {
+    holder.binding.setCategory(categoryModel);
+    holder.binding.setClick(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         if (CategoriesAdapter.this.onItemClickListener != null) {
@@ -90,12 +94,10 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
   }
 
   static class CategoryViewHolder extends RecyclerView.ViewHolder {
-    @Bind(R.id.title)
-    TextView textViewTitle;
-
+    RowCategoryBinding binding;
     public CategoryViewHolder(View itemView) {
       super(itemView);
-      ButterKnife.bind(this, itemView);
+      binding = DataBindingUtil.bind(itemView);
     }
   }
 }
