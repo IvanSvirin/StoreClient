@@ -26,5 +26,7 @@ public interface ProductRepository {
 
   Observable<List<Product>> products();
 
+  Observable<List<Product>> productsByBrand(final String brandName);
+
   Observable<Product> product(final int id);
 }

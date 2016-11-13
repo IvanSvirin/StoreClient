@@ -108,13 +108,11 @@ public class BrandCacheImpl implements BrandCache {
 
     private void setLastCacheUpdateTimeMillis() {
         long currentMillis = System.currentTimeMillis();
-        this.fileManager.writeToPreferences(this.context, SETTINGS_FILE_NAME,
-                SETTINGS_KEY_LAST_CACHE_UPDATE, currentMillis);
+        this.fileManager.writeToPreferences(this.context, SETTINGS_FILE_NAME, SETTINGS_KEY_LAST_CACHE_UPDATE, currentMillis);
     }
 
     private long getLastCacheUpdateTimeMillis() {
-        return this.fileManager.getFromPreferences(this.context, SETTINGS_FILE_NAME,
-                SETTINGS_KEY_LAST_CACHE_UPDATE);
+        return this.fileManager.getFromPreferences(this.context, SETTINGS_FILE_NAME, SETTINGS_KEY_LAST_CACHE_UPDATE);
     }
 
     private void executeAsynchronously(Runnable runnable) {

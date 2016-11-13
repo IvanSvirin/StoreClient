@@ -29,6 +29,8 @@ public interface ProductDataStore {
 
   Observable<List<ProductEntity>> productEntityList();
 
+  Observable<List<ProductEntity>> productEntitiesByBrand(final String brandName);
+
   Observable<ProductEntity> productEntityDetails(final int id);
 
 }

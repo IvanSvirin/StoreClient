@@ -57,6 +57,12 @@ public class ProductDataRepository implements ProductRepository {
   }
 
   @Override
+  public Observable<List<Product>> productsByBrand(String brandName) {
+    final ProductDataStore productDataStore = this.productDataStoreFactory.createListByBrand(brandName);
+    return productDataStore.productEntitiesByBrand(brandName).map(this.entityDataMapper::transformProducts);
+  }
+
+  @Override
   public Observable<Product> product(int id) {
     final ProductDataStore productDataStore = this.productDataStoreFactory.create(id);
     return productDataStore.productEntityDetails(id).map(this.entityDataMapper::transform);

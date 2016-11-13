@@ -54,8 +54,8 @@ public class Navigator {
    * @param context A Context needed to open the destiny activity.
    */
 
-  public void navigateToProductList(Context context, int id) {
-    Intent intentToLaunch = ProductListActivity.getCallingIntent(context);
+  public void navigateToProductList(Context context, String brandName) {
+    Intent intentToLaunch = ProductListActivity.getCallingIntent(context, brandName);
     context.startActivity(intentToLaunch);
   }
 

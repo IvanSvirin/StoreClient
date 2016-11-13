@@ -34,21 +34,17 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-/**
- * {@link Presenter} that controls communication between views and models of the presentation
- * layer.
- */
 @PerActivity
-public class ProductListPresenter implements Presenter {
+public class ProductsByBrandPresenter implements Presenter {
     private ProductListView viewListView;
 
-    private final UseCase getProductListUseCase;
+    private final UseCase getProductsByBrandUseCase;
     private final ModelDataMapper productModelDataMapper;
 
     @Inject
-    public ProductListPresenter(@Named("productList") UseCase getProductListUserCase, ModelDataMapper productModelDataMapper) {
-        this.getProductListUseCase = getProductListUserCase;
-        this.productModelDataMapper = productModelDataMapper;
+    public ProductsByBrandPresenter(@Named("productsByBrand") UseCase getProductsByBrandUseCase, ModelDataMapper brandModelDataMapper) {
+        this.getProductsByBrandUseCase = getProductsByBrandUseCase;
+        this.productModelDataMapper = brandModelDataMapper;
     }
 
     public void setView(@NonNull ProductListView view) {
@@ -65,19 +61,16 @@ public class ProductListPresenter implements Presenter {
 
     @Override
     public void destroy() {
-        this.getProductListUseCase.unsubscribe();
+        this.getProductsByBrandUseCase.unsubscribe();
         this.viewListView = null;
     }
 
-    /**
-     * Initializes the presenter by start retrieving the product list.
-     */
     public void initialize() {
         this.loadProductList();
     }
 
     /**
-     * Loads all products.
+     * Loads all categories.
      */
     private void loadProductList() {
         this.hideViewRetry();
@@ -106,8 +99,7 @@ public class ProductListPresenter implements Presenter {
     }
 
     private void showErrorMessage(ErrorBundle errorBundle) {
-        String errorMessage = ErrorMessageFactory.create(this.viewListView.context(),
-                errorBundle.getException());
+        String errorMessage = ErrorMessageFactory.create(this.viewListView.context(), errorBundle.getException());
         this.viewListView.showError(errorMessage);
     }
 
@@ -118,26 +110,26 @@ public class ProductListPresenter implements Presenter {
     }
 
     private void getProductList() {
-        this.getProductListUseCase.execute(new ProductListSubscriber());
+        this.getProductsByBrandUseCase.execute(new ProductsByBrandSubscriber());
     }
 
-    private final class ProductListSubscriber extends DefaultSubscriber<List<Product>> {
+    private final class ProductsByBrandSubscriber extends DefaultSubscriber<List<Product>> {
 
         @Override
         public void onCompleted() {
-            ProductListPresenter.this.hideViewLoading();
+            ProductsByBrandPresenter.this.hideViewLoading();
         }
 
         @Override
         public void onError(Throwable e) {
-            ProductListPresenter.this.hideViewLoading();
-            ProductListPresenter.this.showErrorMessage(new DefaultErrorBundle((Exception) e));
-            ProductListPresenter.this.showViewRetry();
+            ProductsByBrandPresenter.this.hideViewLoading();
+            ProductsByBrandPresenter.this.showErrorMessage(new DefaultErrorBundle((Exception) e));
+            ProductsByBrandPresenter.this.showViewRetry();
         }
 
         @Override
         public void onNext(List<Product> products) {
-            ProductListPresenter.this.showProductsCollectionInView(products);
+            ProductsByBrandPresenter.this.showProductsCollectionInView(products);
         }
     }
 }

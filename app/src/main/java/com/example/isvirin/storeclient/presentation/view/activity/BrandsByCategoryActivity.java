@@ -18,8 +18,7 @@ import com.example.isvirin.storeclient.presentation.internal.di.modules.BrandMod
 import com.example.isvirin.storeclient.presentation.model.BrandModel;
 import com.example.isvirin.storeclient.presentation.view.fragment.BrandListFragment;
 
-public class BrandsByCategoryActivity extends BaseActivity implements HasComponent<BrandComponent>,
-        BrandListFragment.BrandListListener {
+public class BrandsByCategoryActivity extends BaseActivity implements HasComponent<BrandComponent>, BrandListFragment.BrandListListener {
     private static final String INTENT_EXTRA_PARAM_CATEGORY_ID = "INTENT_PARAM_CATEGORY_ID";
     private static final String INSTANCE_STATE_PARAM_CATEGORY_ID = "STATE_PARAM_CATEGORY_ID";
 
@@ -73,6 +72,6 @@ public class BrandsByCategoryActivity extends BaseActivity implements HasCompone
     }
 
     public void onBrandClicked(BrandModel brandModel) {
-        this.navigator.navigateToProductList(this, brandModel.getId());
+        this.navigator.navigateToProductList(this, brandModel.getName());
     }
 }

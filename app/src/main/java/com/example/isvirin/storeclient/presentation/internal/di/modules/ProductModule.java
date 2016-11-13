@@ -19,6 +19,7 @@ import com.example.isvirin.storeclient.domain.executor.PostExecutionThread;
 import com.example.isvirin.storeclient.domain.executor.ThreadExecutor;
 import com.example.isvirin.storeclient.domain.interactor.GetProductDetails;
 import com.example.isvirin.storeclient.domain.interactor.GetProductList;
+import com.example.isvirin.storeclient.domain.interactor.GetProductsByBrand;
 import com.example.isvirin.storeclient.domain.interactor.UseCase;
 import com.example.isvirin.storeclient.domain.repository.ProductRepository;
 import com.example.isvirin.storeclient.presentation.internal.di.PerActivity;
@@ -33,9 +34,14 @@ import dagger.Provides;
  */
 @Module
 public class ProductModule {
+    private String brandName = "";
     private int id = -1;
 
     public ProductModule() {
+    }
+
+    public ProductModule(String brandName) {
+        this.brandName = brandName;
     }
 
     public ProductModule(int id) {
@@ -47,6 +53,14 @@ public class ProductModule {
     @Named("productList")
     UseCase provideGetProductListUseCase(GetProductList getProductList) {
         return getProductList;
+    }
+
+    @Provides
+    @PerActivity
+    @Named("productsByBrand")
+    UseCase provideGetProductsByBrandUseCase(ProductRepository productRepository, ThreadExecutor threadExecutor,
+                                             PostExecutionThread postExecutionThread) {
+        return new GetProductsByBrand(brandName, productRepository, threadExecutor, postExecutionThread);
     }
 
     @Provides

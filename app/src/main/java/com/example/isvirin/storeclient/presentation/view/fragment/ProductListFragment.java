@@ -14,10 +14,10 @@ import android.widget.RelativeLayout;
 import com.example.isvirin.storeclient.R;
 import com.example.isvirin.storeclient.presentation.internal.di.components.ProductComponent;
 import com.example.isvirin.storeclient.presentation.model.ProductModel;
-import com.example.isvirin.storeclient.presentation.presenter.ProductListPresenter;
+import com.example.isvirin.storeclient.presentation.presenter.ProductsByBrandPresenter;
 import com.example.isvirin.storeclient.presentation.view.ProductListView;
-import com.example.isvirin.storeclient.presentation.view.adapter.ProductsAdapter;
 import com.example.isvirin.storeclient.presentation.view.adapter.CommonLayoutManager;
+import com.example.isvirin.storeclient.presentation.view.adapter.ProductsAdapter;
 
 import java.util.Collection;
 
@@ -36,7 +36,7 @@ public class ProductListFragment extends BaseFragment implements ProductListView
     }
 
     @Inject
-    ProductListPresenter productListPresenter;
+    ProductsByBrandPresenter productListPresenter;
     @Inject
     ProductsAdapter productsAdapter;
 
@@ -174,7 +174,8 @@ public class ProductListFragment extends BaseFragment implements ProductListView
         this.productListPresenter.initialize();
     }
 
-    @OnClick(R.id.bt_retry) void onButtonRetryClick() {
+    @OnClick(R.id.bt_retry)
+    void onButtonRetryClick() {
         ProductListFragment.this.loadProductList();
     }
 

@@ -85,6 +85,21 @@ public class ProductCacheImpl implements ProductCache {
     }
 
     @Override
+    public Observable<List<ProductEntity>> getProductsByBrand(String brandName) {
+        return Observable.create(subscriber -> {
+            ProductEntityDao productEntityDao = getDaoSession.getDaoSession().getProductEntityDao();
+            Query<ProductEntity> query = productEntityDao.queryBuilder().where(ProductEntityDao.Properties.Brand.eq(brandName)).build();
+            List<ProductEntity> productEntities = query.list();
+            if (productEntities != null) {
+                subscriber.onNext(productEntities);
+                subscriber.onCompleted();
+            } else {
+                subscriber.onError(new ProductNotFoundException());
+            }
+        });
+    }
+
+    @Override
     public Observable<List<ProductEntity>> getProducts() {
         return Observable.create(subscriber -> {
             ProductEntityDao productEntityDao = getDaoSession.getDaoSession().getProductEntityDao();

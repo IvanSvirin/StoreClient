@@ -53,6 +53,7 @@ public interface ProductCache {
      */
     void evictAll();
 
+    Observable<List<ProductEntity>> getProductsByBrand(final String brandName);
 
 
     Observable<List<ProductEntity>> getProducts();

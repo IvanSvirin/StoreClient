@@ -56,6 +56,11 @@ class CloudProductDataStore implements ProductDataStore {
   }
 
   @Override
+  public Observable<List<ProductEntity>> productEntitiesByBrand(String brandName) {
+    return null;
+  }
+
+  @Override
   public Observable<ProductEntity> productEntityDetails(int id) {
     return null;
 //    return this.restApi.productEntityById(id).doOnNext(saveToCacheAction);

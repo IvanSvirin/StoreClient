@@ -44,6 +44,11 @@ class DiskProductDataStore implements ProductDataStore {
   }
 
   @Override
+  public Observable<List<ProductEntity>> productEntitiesByBrand(String brandName) {
+    return this.productCache.getProductsByBrand(brandName);
+  }
+
+  @Override
   public Observable<ProductEntity> productEntityDetails(int id) {
     return this.productCache.get(id);
   }
