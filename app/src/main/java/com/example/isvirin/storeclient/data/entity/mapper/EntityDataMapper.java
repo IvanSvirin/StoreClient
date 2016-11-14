@@ -17,9 +17,11 @@ package com.example.isvirin.storeclient.data.entity.mapper;
 
 import com.example.isvirin.storeclient.data.entity.BrandEntity;
 import com.example.isvirin.storeclient.data.entity.CategoryEntity;
+import com.example.isvirin.storeclient.data.entity.ChosenItemEntity;
 import com.example.isvirin.storeclient.data.entity.ProductEntity;
 import com.example.isvirin.storeclient.domain.Brand;
 import com.example.isvirin.storeclient.domain.Category;
+import com.example.isvirin.storeclient.domain.ChosenItem;
 import com.example.isvirin.storeclient.domain.Product;
 
 import java.util.ArrayList;
@@ -50,6 +52,20 @@ public class EntityDataMapper {
       product.setDescription(productEntity.getDescription());
     }
     return product;
+  }
+
+  public ChosenItem transform(ChosenItemEntity chosenItemEntity) {
+    ChosenItem chosenItem = null;
+    if (chosenItemEntity != null) {
+      chosenItem = new ChosenItem(chosenItemEntity.getProductId());
+      chosenItem.setName(chosenItemEntity.getName());
+      chosenItem.setCategoryId(chosenItemEntity.getCategoryId());
+      chosenItem.setCode(chosenItemEntity.getCode());
+      chosenItem.setPrice(chosenItemEntity.getPrice());
+      chosenItem.setBrand(chosenItemEntity.getBrand());
+      chosenItem.setDescription(chosenItemEntity.getDescription());
+    }
+    return chosenItem;
   }
 
   public Category transform(CategoryEntity categoryEntity) {
@@ -83,6 +99,18 @@ public class EntityDataMapper {
       }
     }
     return products;
+  }
+
+  public List<ChosenItem> transformChosenItems(Collection<ChosenItemEntity> chosenItemEntityCollection) {
+    List<ChosenItem> chosenItems = new ArrayList<>(20);
+    ChosenItem chosenItem;
+    for (ChosenItemEntity chosenItemEntity : chosenItemEntityCollection) {
+      chosenItem = transform(chosenItemEntity);
+      if (chosenItem != null) {
+        chosenItems.add(chosenItem);
+      }
+    }
+    return chosenItems;
   }
 
   public List<Category> transformCategories(Collection<CategoryEntity> categoryEntityCollection) {
